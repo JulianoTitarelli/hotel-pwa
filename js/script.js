@@ -1,16 +1,149 @@
 const produtos = [
+
     {
-        nome: "Café",
-        preco: 5.00
+        categoria: "Cafeteria",
+        nome: "Café expresso Dolce Gusto 50ml",
+        descricao: "",
+        preco: 9.00,
+        ativo: true
     },
+
     {
-        nome: "Sanduíche",
-        preco: 12.00
+        categoria: "Cafeteria",
+        nome: "Café coado",
+        descricao: "",
+        preco: 8.00,
+        ativo: true
     },
+
     {
-        nome: "Refrigerante",
-        preco: 6.00
+        categoria: "Cafeteria",
+        nome: "Café expresso Dolce Gusto Lungo",
+        descricao: "",
+        preco: 9.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Café expresso Dolce Gusto Matinal",
+        descricao: "",
+        preco: 9.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Café expresso Dolce Gusto Doppio",
+        descricao: "",
+        preco: 9.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Espresso Latte Nesquik",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Espresso Latte KitKat",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Espresso Au Lait",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Espresso Latte Tea Chai",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Espresso Latte Língua de Gato",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Cappuccino Tradicional",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Cappuccino Caramelo Salgado",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Cappuccino Doce de Leite",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Cappuccino Brigadeiro",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Cappuccino Canela",
+        descricao: "",
+        preco: 11.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Cappuccino com borda de creme de avelã",
+        descricao: "",
+        preco: 14.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Frappé",
+        descricao: "",
+        preco: 14.00,
+        ativo: true
+    },
+
+    {
+        categoria: "Cafeteria",
+        nome: "Affogato",
+        descricao: "",
+        preco: 12.00,
+        ativo: true
     }
+
 ];
 
 let pedido = [];
