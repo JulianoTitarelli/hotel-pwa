@@ -230,3 +230,6 @@ function enviarPedido() {
     );
 
 }
+
+
+mostrarCategoria("Cafeteria");
