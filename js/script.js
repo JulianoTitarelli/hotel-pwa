@@ -136,13 +136,93 @@ const produtos = [
         ativo: true
     },
 
-    {
-        categoria: "Cafeteria",
-        nome: "Affogato",
-        descricao: "",
-        preco: 12.00,
-        ativo: true
-    }
+   {
+    categoria: "Cafeteria",
+    nome: "Affogato",
+    descricao: "",
+    preco: 12.00,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Salgado assado tortinha de costela",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Salgado assado esfiha de carne",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Salgado assado esfiha de frango",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Salgado assado ghirella de pizza",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Salgado assado presunto e queijo",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Salgado assado X-burguer com bacon",
+    descricao: "",
+    preco: 10.00,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Croissant pizza",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Croissant frango com requeijão",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Croissant de chocolate",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+},
+
+{
+    categoria: "Salgados",
+    nome: "Croissant de doce de leite",
+    descricao: "",
+    preco: 7.50,
+    ativo: true
+}
 
 ];
 
