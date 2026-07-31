@@ -152,18 +152,23 @@ const cardapio = document.getElementById("cardapio");
 
 produtos.forEach((produto, index) => {
 
-    cardapio.innerHTML += `
-        <div class="produto">
-            <h3>${produto.nome}</h3>
-            <p>R$ ${produto.preco.toFixed(2)}</p>
-            <button onclick="adicionarProduto(${index})">
-                Adicionar
-            </button>
-        </div>
-    `;
+    if (produto.ativo) {
+
+        cardapio.innerHTML += `
+            <div class="produto">
+                <h3>${produto.nome}</h3>
+                <p>${produto.descricao}</p>
+                <p>R$ ${produto.preco.toFixed(2)}</p>
+
+                <button onclick="adicionarProduto(${index})">
+                    Adicionar
+                </button>
+            </div>
+        `;
+
+    }
 
 });
-
 
 function adicionarProduto(index) {
 
