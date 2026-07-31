@@ -3,60 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel - Pedidos</title>
+    <title>Hotel do Baú | Portal do Hóspede</title>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>Bem-vindo ao Hotel do Baú</h1>
-        <p>Aqui você encontra todas informações para que sua estadia seja a melhor possível</p>
-    </header>
+<header class="topo">
+    <div class="logo">
+        🏨
+    </div>
 
-    <main>
-        <h2>Cardápio</h2>
+    <h1>Hotel do Baú</h1>
 
-       <div id="categorias">
-    <button onclick="mostrarCategoria('Cafeteria')">
-        ☕ Cafeteria
-    </button>
+    <p>Portal do Hóspede</p>
+</header>
 
-    <button onclick="mostrarCategoria('Salgados')">
-        🥐 Salgados
-    </button>
+<main class="menu">
 
-    <button onclick="mostrarCategoria('Lanches')">
-        🍔 Lanches
-    </button>
+    <a href="paginas/beneficios.html" class="card">
+        <h2>📖 Manual de Benefícios</h2>
+        <p>Conheça todos os benefícios e serviços oferecidos pelo hotel.</p>
+    </a>
 
-    <button onclick="mostrarCategoria('Pratos Feitos')">
-        🍽 Pratos Feitos
-    </button>
+    <a href="paginas/turismo.html" class="card">
+        <h2>🎯 Manual de Turismo</h2>
+        <p>Descubra atrações, passeios e pontos turísticos da região.</p>
+    </a>
 
-    <button onclick="mostrarCategoria('Doces')">
-        🍰 Doces
-    </button>
+    <a href="paginas/academias.html" class="card">
+        <h2>💪 Academias Parceiras</h2>
+        <p>Confira as academias conveniadas próximas ao hotel.</p>
+    </a>
 
-    <button onclick="mostrarCategoria('Petiscos')">
-        🍟 Petiscos
-    </button>
+    <a href="paginas/restaurantes.html" class="card">
+        <h2>🛒 Restaurantes e Mercados</h2>
+        <p>Veja opções de alimentação e compras próximas.</p>
+    </a>
 
-    <button onclick="mostrarCategoria('Bebidas')">
-        🥤 Bebidas
-    </button>
-</div> <div id="cardapio">
-            <!-- Produtos serão adicionados aqui -->
-        </div>
+    <a href="paginas/cardapio.html" class="card destaque">
+        <h2>🍽️ Cardápio</h2>
+        <p>Faça seu pedido e envie diretamente para o WhatsApp.</p>
+    </a>
 
-        <button onclick="enviarPedido()">
-            Enviar Pedido pelo WhatsApp
-        </button>
-    </main>
+</main>
 
-   <script src="js/produtos.js"></script>
-<script src="js/app.js"></script>
-    
+<footer>
+    <p>Hotel do Baú © 2026</p>
+</footer>
+
 </body>
 </html>
