@@ -150,25 +150,40 @@ let pedido = [];
 
 const cardapio = document.getElementById("cardapio");
 
-produtos.forEach((produto, index) => {
+function mostrarCategoria(categoria) {
 
-    if (produto.ativo) {
+    const cardapio = document.getElementById("cardapio");
 
-        cardapio.innerHTML += `
-            <div class="produto">
-                <h3>${produto.nome}</h3>
-                <p>${produto.descricao}</p>
-                <p>R$ ${produto.preco.toFixed(2)}</p>
+    cardapio.innerHTML = "";
 
-                <button onclick="adicionarProduto(${index})">
-                    Adicionar
-                </button>
-            </div>
-        `;
 
-    }
+    produtos.forEach((produto, index) => {
 
-});
+        if (produto.categoria === categoria && produto.ativo) {
+
+            cardapio.innerHTML += `
+                <div class="produto">
+
+                    <h3>${produto.nome}</h3>
+
+                    <p>${produto.descricao}</p>
+
+                    <p>
+                        R$ ${produto.preco.toFixed(2)}
+                    </p>
+
+                    <button onclick="adicionarProduto(${index})">
+                        Adicionar
+                    </button>
+
+                </div>
+            `;
+
+        }
+
+    });
+
+}
 
 function adicionarProduto(index) {
 
