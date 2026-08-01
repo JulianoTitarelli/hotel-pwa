@@ -57,8 +57,6 @@ lista.appendChild(containerCategoria);
 
 switch(produto.categoria){
 
-switch(produto.categoria){
-
     case "Cafeteria":
 
         if(
@@ -80,8 +78,10 @@ switch(produto.categoria){
 
     case "Bebidas":
 
-        if(produto.nome.toLowerCase().includes("água") ||
-           produto.nome.toLowerCase().includes("agua")){
+        if(
+            produto.nome.toLowerCase().includes("água") ||
+            produto.nome.toLowerCase().includes("agua")
+        ){
 
             imagem = "img/aguas.webp";
 
