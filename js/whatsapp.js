@@ -49,17 +49,7 @@ Quantidade: ${item.quantidade}
 
 📝 *Observações:*
 
-const campoObservacao = document.getElementById("observacao");
-
-let observacao = "Nenhuma";
-
-if(campoObservacao){
-
-    observacao = campoObservacao.value.trim();
-
-    if(observacao === ""){
-        observacao = "Nenhuma";
-    }
+${observacao}
 
 }
 ━━━━━━━━━━━━━━
