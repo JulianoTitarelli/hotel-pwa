@@ -1,40 +1,129 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f5f5f5;
-    color: #333;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-header {
-    background: #1f4e79;
-    color: white;
-    text-align: center;
-    padding: 25px;
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:#f4f7fb;
+    color:#333;
+
 }
 
-main {
-    padding: 20px;
-    text-align: center;
+.topo{
+
+    background:#243d73;
+    color:white;
+    text-align:center;
+    padding:40px 20px;
+
 }
 
-#cardapio {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+.logo{
+
+    width:130px;
+    margin-bottom:15px;
+
 }
 
-button {
-    background: #25D366;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
+.topo h1{
+
+    font-size:38px;
+    font-weight:700;
+
 }
 
-button:hover {
-    opacity: 0.8;
+.topo p{
+
+    margin-top:10px;
+    font-size:20px;
+    font-weight:300;
+
+}
+
+.menu{
+
+    width:95%;
+    max-width:900px;
+    margin:40px auto;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+
+}
+
+.card{
+
+    text-decoration:none;
+    color:#333;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.card span{
+
+    font-size:50px;
+
+}
+
+.card h2{
+
+    margin-top:15px;
+
+    color:#243d73;
+
+    font-size:24px;
+
+}
+
+.card p{
+
+    margin-top:10px;
+
+    line-height:1.5;
+
+}
+
+.destaque{
+
+    background:#243d73;
+
+    color:white;
+
+}
+
+.destaque h2{
+
+    color:white;
+
+}
+
+footer{
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#666;
+
 }
