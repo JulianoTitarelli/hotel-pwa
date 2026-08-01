@@ -3,7 +3,6 @@ function enviarPedido(){
     if(carrinho.length === 0){
 
         alert("Adicione algum produto ao pedido.");
-
         return;
 
     }
@@ -15,13 +14,12 @@ function enviarPedido(){
     if(quarto === ""){
 
         alert("Informe o número do quarto.");
-
         return;
 
     }
 
 
-let mensagem = 
+    let mensagem = 
 `━━━━━━━━━━━━━━
 
 📦 *NOVO PEDIDO*
@@ -34,12 +32,20 @@ let mensagem =
 
 `;
 
+
+    carrinho.forEach(item => {
+
+        mensagem += 
+`🍽️ ${item.nome}
+Quantidade: ${item.quantidade}
+
+`;
+
     });
 
 
-   mensagem += 
-`
-━━━━━━━━━━━━━━
+    mensagem += 
+`━━━━━━━━━━━━━━
 
 📝 *Observações:*
 
@@ -49,14 +55,13 @@ ${document.getElementById("observacao").value || "Nenhuma"}
 
 💰 *Total:* R$ ${total.innerHTML}
 
-🙏 Obrigado por escolher o Hotel do Baú!
-`;
+🙏 Obrigado por escolher o Hotel do Baú!`;
 
 
     const texto = encodeURIComponent(mensagem);
 
 
-   const confirmar = confirm(
+    const confirmar = confirm(
 `
 Confirmar pedido?
 
@@ -68,13 +73,13 @@ R$ ${total.innerHTML}
 );
 
 
-if(confirmar){
+    if(confirmar){
 
-    window.open(
-        "https://wa.me/?text=" + texto,
-        "_blank"
-    );
+        window.open(
+            "https://wa.me/?text=" + texto,
+            "_blank"
+        );
 
-}
+    }
 
 }
