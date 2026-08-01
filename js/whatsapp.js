@@ -22,9 +22,7 @@ function enviarPedido(){
 
 
     let mensagem = 
-`📦 NOVO PEDIDO
-
-🏨 Hotel do Baú
+`NOVO PEDIDO
 
 🚪 Quarto: ${quarto}
 
@@ -49,9 +47,25 @@ function enviarPedido(){
     const texto = encodeURIComponent(mensagem);
 
 
+   const confirmar = confirm(
+`
+Confirmar pedido?
+
+Quarto: ${quarto}
+
+Total:
+R$ ${total.innerHTML}
+`
+);
+
+
+if(confirmar){
+
     window.open(
         "https://wa.me/?text=" + texto,
         "_blank"
     );
+
+}
 
 }
