@@ -14,6 +14,7 @@ body {
 }
 
 
+
 /* CABEÇALHO */
 
 .inicio {
@@ -21,7 +22,7 @@ body {
     text-align: center;
     background: #8b0000;
     color: white;
-    padding: 30px 20px;
+    padding: 35px 20px;
 
 }
 
@@ -48,8 +49,18 @@ body {
 
 .inicio p {
 
-    margin: 0;
+    margin: 5px 0;
     font-size: 18px;
+
+}
+
+
+.inicio span {
+
+    display: block;
+    font-size: 14px;
+    opacity: 0.9;
+    margin-top: 8px;
 
 }
 
@@ -59,13 +70,13 @@ body {
 
 .menu {
 
-    padding: 20px;
+    padding: 25px;
 
     display: grid;
 
     grid-template-columns: repeat(2, 1fr);
 
-    gap: 15px;
+    gap: 18px;
 
 }
 
@@ -83,34 +94,34 @@ body {
 
     text-align: center;
 
-    padding: 20px 10px;
+    padding: 25px 15px;
 
-    border-radius: 15px;
+    border-radius: 18px;
 
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 
-    transition: 0.2s;
+    transition: 0.3s;
 
 }
 
 
 .opcao:hover {
 
-    transform: scale(1.03);
+    transform: translateY(-5px);
 
 }
 
 
 .opcao:first-letter {
 
-    font-size: 40px;
+    font-size: 45px;
 
 }
 
 
 .opcao h2 {
 
-    margin: 10px 0 5px;
+    margin: 12px 0 8px;
 
     color: #8b0000;
 
