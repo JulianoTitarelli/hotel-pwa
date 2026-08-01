@@ -67,7 +67,7 @@ switch(produto.categoria){
 
             imagem = "img/cappuccino-espresso.webp";
 
-        }else{
+        } else {
 
             imagem = "img/cafe-espresso.webp";
 
