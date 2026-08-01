@@ -104,3 +104,23 @@ R$ ${total.innerHTML}`
     }
 
 }
+// BOTÃO FIXO WHATSAPP DA RECEPÇÃO
+
+function criarWhatsappRecepcao(){
+
+    const botao = document.createElement("a");
+
+    botao.href = "https://wa.me/5516991180878?text=Olá,%20gostaria%20de%20falar%20com%20a%20recepção%20do%20Hotel%20do%20Baú";
+
+    botao.target = "_blank";
+
+    botao.innerHTML = "📱";
+
+    botao.className = "whatsapp-fixo";
+
+    document.body.appendChild(botao);
+
+}
+
+
+document.addEventListener("DOMContentLoaded", criarWhatsappRecepcao);
