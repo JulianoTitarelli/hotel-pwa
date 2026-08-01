@@ -64,25 +64,69 @@
     <textarea 
         id="observacao"
         placeholder="Alguma observação?">
-    </textarea>
+    <section class="carrinho">
 
+    <div class="resumo-carrinho">
 
-    <div id="pedido">
+        🛒 <span id="quantidade-itens">0</span> itens
 
-        Nenhum item selecionado.
+        <strong>
+            R$ <span id="total-resumo">0,00</span>
+        </strong>
+
+        <button onclick="abrirCarrinho()">
+            VER PEDIDO
+        </button>
 
     </div>
 
 
-    <h3>
-        Total:
-        R$ <span id="total">0,00</span>
-    </h3>
+    <div id="painel-carrinho" class="painel-fechado">
 
 
-    <button class="enviar" onclick="enviarPedido()">
-        ENVIAR PEDIDO
-    </button>
+        <h2>
+            🛒 Meu Pedido
+        </h2>
+
+
+        <label>
+            Número do quarto:
+        </label>
+
+        <input 
+            type="number" 
+            id="quarto"
+            placeholder="Ex: 205">
+
+
+        <label>
+            Observações:
+        </label>
+
+        <textarea 
+            id="observacao"
+            placeholder="Alguma observação?">
+        </textarea>
+
+
+        <div id="pedido">
+            Nenhum item selecionado.
+        </div>
+
+
+        <h3>
+            Total:
+            R$ <span id="total">0,00</span>
+        </h3>
+
+
+        <button class="enviar" onclick="enviarPedido()">
+            ENVIAR PEDIDO
+        </button>
+
+
+    </div>
+
 
 </section>
 
