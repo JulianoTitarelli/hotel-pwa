@@ -21,26 +21,35 @@ function enviarPedido(){
     }
 
 
-    let mensagem = 
-`NOVO PEDIDO
+let mensagem = 
+`━━━━━━━━━━━━━━
 
-🚪 Quarto: ${quarto}
+📦 *NOVO PEDIDO*
 
-`;
+🏨 *Hotel do Baú*
 
+🚪 *Quarto:* ${quarto}
 
-    carrinho.forEach(item => {
+━━━━━━━━━━━━━━
 
-        mensagem += 
-`🍽️ ${item.nome} x ${item.quantidade}
 `;
 
     });
 
 
-    mensagem += 
+   mensagem += 
 `
-💰 Total: R$ ${total.innerHTML}
+━━━━━━━━━━━━━━
+
+📝 *Observações:*
+
+${document.getElementById("observacao").value || "Nenhuma"}
+
+━━━━━━━━━━━━━━
+
+💰 *Total:* R$ ${total.innerHTML}
+
+🙏 Obrigado por escolher o Hotel do Baú!
 `;
 
 
