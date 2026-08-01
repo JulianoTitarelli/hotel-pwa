@@ -57,6 +57,8 @@ lista.appendChild(containerCategoria);
 
 switch(produto.categoria){
 
+switch(produto.categoria){
+
     case "Cafeteria":
 
         if(
@@ -98,6 +100,13 @@ switch(produto.categoria){
     break;
 
 
+    case "Salgados":
+
+        imagem = "img/salgados.webp";
+
+    break;
+
+
     case "Doces":
 
         imagem = "img/sobremesas.webp";
@@ -105,12 +114,6 @@ switch(produto.categoria){
     break;
 
 }
-case "Salgados":
-}
-
-    imagem = "img/salgados.webp";
-
-break;
 
                div.innerHTML = `
 
