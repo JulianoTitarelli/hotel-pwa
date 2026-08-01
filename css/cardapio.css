@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+
+.topo {
+    text-align: center;
+    background: #8b0000;
+    color: white;
+    padding: 20px;
+}
+
+
+.voltar {
+    float: left;
+    padding: 8px;
+}
+
+
+.pesquisa {
+    padding: 15px;
+}
+
+
+.pesquisa input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+
+#lista-produtos {
+    padding: 15px;
+}
+
+
+.produto {
+
+    background: white;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+
+}
+
+
+.produto button {
+
+    padding: 8px 15px;
+    margin: 5px;
+
+}
+
+
+.carrinho {
+
+    position: fixed;
+    bottom: 0;
+    background: white;
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0 -2px 10px #aaa;
+
+}
+
+
+.carrinho input,
+.carrinho textarea {
+
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 10px;
+
+}
+
+
+.enviar {
+
+    width: 100%;
+    padding: 15px;
+    background: green;
+    color:white;
+    border:none;
+    font-size:18px;
+
+}
