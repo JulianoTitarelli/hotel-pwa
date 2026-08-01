@@ -38,33 +38,14 @@
 
 <main id="lista-produtos">
 
-    <!-- Produtos serão carregados pelo JavaScript -->
+    <!-- Produtos carregados pelo JavaScript -->
 
 </main>
 
 
+
 <section class="carrinho">
 
-    <h2>🛒 Meu Pedido</h2>
-
-    <label>
-        Número do quarto:
-    </label>
-
-    <input 
-        type="number" 
-        id="quarto"
-        placeholder="Ex: 205">
-
-
-    <label>
-        Observações:
-    </label>
-
-    <textarea 
-    id="observacao"
-    placeholder="Alguma observação?"></textarea>
-    <section class="carrinho">
 
     <div class="resumo-carrinho">
 
@@ -74,11 +55,13 @@
             R$ <span id="total-resumo">0,00</span>
         </strong>
 
+
         <button onclick="abrirCarrinho()">
             VER PEDIDO
         </button>
 
     </div>
+
 
 
     <div id="painel-carrinho" class="painel-fechado">
@@ -93,36 +76,50 @@
             Número do quarto:
         </label>
 
+
         <input 
             type="number" 
             id="quarto"
             placeholder="Ex: 205">
 
 
+
         <label>
             Observações:
         </label>
 
+
         <textarea 
             id="observacao"
-            placeholder="Alguma observação?">
-        </textarea>
+            placeholder="Alguma observação?"></textarea>
+
 
 
         <div id="pedido">
+
             Nenhum item selecionado.
+
         </div>
 
 
+
         <h3>
+
             Total:
             R$ <span id="total">0,00</span>
+
         </h3>
 
 
-        <button class="enviar" onclick="enviarPedido()">
+
+        <button 
+            class="enviar" 
+            onclick="enviarPedido()">
+
             ENVIAR PEDIDO
+
         </button>
+
 
 
     </div>
@@ -131,9 +128,13 @@
 </section>
 
 
+
 <script src="dados/produtos.js"></script>
+
 <script src="js/cardapio.js"></script>
+
 <script src="js/whatsapp.js"></script>
+
 
 </body>
 
