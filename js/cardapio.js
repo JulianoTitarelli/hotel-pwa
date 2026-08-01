@@ -26,16 +26,30 @@ function carregarProdutos(filtro = "") {
         if(itens.length > 0){
 
             const titulo = document.createElement("h2");
-            titulo.innerHTML = "🍽️ " + categoria;
 
-            lista.appendChild(titulo);
+titulo.className = "categoria";
+
+titulo.innerHTML = `
+    🍽️ ${categoria}
+    <span>▼</span>
+`;
 
 
-            itens.forEach(produto => {
+const containerCategoria = document.createElement("div");
 
-                const div = document.createElement("div");
+containerCategoria.className = "grupo-categoria";
 
-                div.className = "produto";
+
+lista.appendChild(titulo);
+
+lista.appendChild(containerCategoria);
+
+
+          itens.forEach(produto => {
+
+    const div = document.createElement("div");
+
+    div.className = "produto";
 
 
                 div.innerHTML = `
@@ -64,9 +78,14 @@ function carregarProdutos(filtro = "") {
                 `;
 
 
-                lista.appendChild(div);
+               containerCategoria.appendChild(div);
 
             });
+            titulo.onclick = () => {
+
+    containerCategoria.classList.toggle("fechado");
+
+};
 
         }
 
