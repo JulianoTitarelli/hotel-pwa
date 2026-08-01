@@ -226,3 +226,20 @@ body {
     margin-bottom: 10px;
 
 }
+/* ===== IMAGENS DOS PRODUTOS ===== */
+
+.foto-produto{
+
+    width: 100%;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    margin-bottom: 10px;
+
+    display: block;
+
+}
