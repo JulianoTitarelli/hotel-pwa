@@ -156,3 +156,73 @@ body {
     overflow:auto;
 
 }
+/* ==========================
+   CARDS DOS PRODUTOS
+========================== */
+
+
+.produto {
+
+    background: white;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    text-align: center;
+
+}
+
+
+.produto h3 {
+
+    margin: 5px 0;
+    font-size: 20px;
+
+}
+
+
+.produto p {
+
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+
+}
+
+
+
+.produto button {
+
+    width: 45px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    background: #8b0000;
+    color: white;
+
+}
+
+
+
+.produto span {
+
+    display: inline-block;
+    width: 45px;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+
+/* Espaço preparado para futuras imagens */
+
+.produto::before {
+
+    content: "📷";
+    display: block;
+    font-size: 45px;
+    margin-bottom: 10px;
+
+}
