@@ -1,129 +1,126 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+* {
 
-body{
-
-    font-family:'Poppins',sans-serif;
-    background:#f4f7fb;
-    color:#333;
+    box-sizing: border-box;
 
 }
 
-.topo{
 
-    background:#243d73;
-    color:white;
-    text-align:center;
-    padding:40px 20px;
+body {
 
-}
-
-.logo{
-
-    width:130px;
-    margin-bottom:15px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
 
 }
 
-.topo h1{
 
-    font-size:38px;
-    font-weight:700;
+/* CABEÇALHO */
 
-}
+.inicio {
 
-.topo p{
-
-    margin-top:10px;
-    font-size:20px;
-    font-weight:300;
+    text-align: center;
+    background: #8b0000;
+    color: white;
+    padding: 30px 20px;
 
 }
 
-.menu{
 
-    width:95%;
-    max-width:900px;
-    margin:40px auto;
+.inicio img {
 
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-
-}
-
-.card{
-
-    text-decoration:none;
-    color:#333;
-
-    background:white;
-
-    padding:30px;
-
-    border-radius:18px;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-
-    transition:.3s;
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: white;
+    padding: 10px;
 
 }
 
-.card:hover{
 
-    transform:translateY(-6px);
+.inicio h1 {
 
-    box-shadow:0 15px 35px rgba(0,0,0,.15);
-
-}
-
-.card span{
-
-    font-size:50px;
+    margin: 15px 0 5px;
+    font-size: 32px;
 
 }
 
-.card h2{
 
-    margin-top:15px;
+.inicio p {
 
-    color:#243d73;
-
-    font-size:24px;
+    margin: 0;
+    font-size: 18px;
 
 }
 
-.card p{
 
-    margin-top:10px;
 
-    line-height:1.5;
+/* MENU */
 
-}
+.menu {
 
-.destaque{
+    padding: 20px;
 
-    background:#243d73;
+    display: grid;
 
-    color:white;
+    grid-template-columns: repeat(2, 1fr);
 
-}
-
-.destaque h2{
-
-    color:white;
+    gap: 15px;
 
 }
 
-footer{
 
-    text-align:center;
 
-    padding:30px;
+/* BOTÕES */
 
-    color:#666;
+.opcao {
+
+    background: white;
+
+    text-decoration: none;
+
+    color: #333;
+
+    text-align: center;
+
+    padding: 20px 10px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+
+    transition: 0.2s;
+
+}
+
+
+.opcao:hover {
+
+    transform: scale(1.03);
+
+}
+
+
+.opcao:first-letter {
+
+    font-size: 40px;
+
+}
+
+
+.opcao h2 {
+
+    margin: 10px 0 5px;
+
+    color: #8b0000;
+
+}
+
+
+.opcao p {
+
+    font-size: 14px;
+
+    margin: 0;
 
 }
