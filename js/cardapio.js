@@ -65,11 +65,11 @@ switch(produto.categoria){
             produto.nome.toLowerCase().includes("affogato")
         ){
 
-            imagem = "img/produtos/cappuccino-espresso.webp";
+            imagem = "img/cappuccino-espresso.webp";
 
         }else{
 
-            imagem = "img/produtos/cafe-espresso.webp";
+            imagem = "img/cafe-espresso.webp";
 
         }
 
@@ -81,17 +81,17 @@ switch(produto.categoria){
         if(produto.nome.toLowerCase().includes("água") ||
            produto.nome.toLowerCase().includes("agua")){
 
-            imagem = "img/produtos/aguas.webp";
+            imagem = "img/aguas.webp";
 
         }
         else if(produto.nome.toLowerCase().includes("vinho")){
 
-            imagem = "img/produtos/cervejas.webp";
+            imagem = "img/cervejas.webp";
 
         }
         else{
 
-            imagem = "img/produtos/refrigerantes.webp";
+            imagem = "img/refrigerantes.webp";
 
         }
 
@@ -100,7 +100,7 @@ switch(produto.categoria){
 
     case "Doces":
 
-        imagem = "img/produtos/sobremesas.webp";
+        imagem = "img/sobremesas.webp";
 
     break;
 
