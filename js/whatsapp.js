@@ -10,6 +10,22 @@ function enviarPedido(){
 
     const quarto = document.getElementById("quarto").value;
 
+    const observacaoCampo = document.getElementById("observacao");
+
+    let observacao = "Nenhuma";
+
+
+    if(observacaoCampo){
+
+        if(observacaoCampo.value.trim() !== ""){
+
+            observacao = observacaoCampo.value.trim();
+
+        }
+
+    }
+
+
 
     if(quarto === ""){
 
@@ -17,6 +33,7 @@ function enviarPedido(){
         return;
 
     }
+
 
 
     let mensagem = 
@@ -33,15 +50,18 @@ function enviarPedido(){
 `;
 
 
+
     carrinho.forEach(item => {
 
         mensagem += 
 `🍽️ ${item.nome}
+
 Quantidade: ${item.quantidade}
 
 `;
 
     });
+
 
 
     mensagem += 
@@ -51,7 +71,6 @@ Quantidade: ${item.quantidade}
 
 ${observacao}
 
-}
 ━━━━━━━━━━━━━━
 
 💰 *Total:* R$ ${total.innerHTML}
@@ -59,19 +78,20 @@ ${observacao}
 🙏 Obrigado por escolher o Hotel do Baú!`;
 
 
+
     const texto = encodeURIComponent(mensagem);
 
 
+
     const confirmar = confirm(
-`
-Confirmar pedido?
+`Confirmar pedido?
 
 Quarto: ${quarto}
 
 Total:
-R$ ${total.innerHTML}
-`
-);
+R$ ${total.innerHTML}`
+    );
+
 
 
     if(confirmar){
