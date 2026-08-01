@@ -100,20 +100,21 @@ switch(produto.categoria){
     break;
 
 
-    case "Salgados":
+case "Salgados":
 
-        imagem = "img/salgados.webp";
+    imagem = "img/salgados.webp";
 
-    break;
+break;
 
 
-    case "Doces":
+case "Doces":
 
-        imagem = "img/sobremesas.webp";
+    imagem = "img/sobremesas.webp";
 
-    break;
+break;
 
 }
+
 
                div.innerHTML = `
 
