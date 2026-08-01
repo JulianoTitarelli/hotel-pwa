@@ -113,6 +113,19 @@ case "Doces":
 
 break;
 
+        case "Lanches":
+
+    imagem = "img/lanches.webp";
+
+break;
+
+
+case "Pratos Feitos":
+
+    imagem = "img/pf.webp";
+
+break;
+
 }
 
 
