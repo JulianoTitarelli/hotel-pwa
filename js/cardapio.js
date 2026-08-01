@@ -105,7 +105,12 @@ switch(produto.categoria){
     break;
 
 }
+case "Salgados":
+}
 
+    imagem = "img/salgados.webp";
+
+break;
 
                div.innerHTML = `
 
