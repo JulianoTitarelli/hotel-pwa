@@ -107,30 +107,29 @@ switch(produto.categoria){
 }
 
 
-                div.innerHTML = `
+               div.innerHTML = `
 
-                    <h3>${produto.nome}</h3>
+    ${imagem ? `<img src="${imagem}" class="foto-produto" alt="${produto.nome}">` : ""}
 
-                    <p>
-                        R$ ${produto.preco.toFixed(2)}
-                    </p>
+    <h3>${produto.nome}</h3>
 
+    <p>
+        R$ ${produto.preco.toFixed(2)}
+    </p>
 
-                    <button onclick="alterarQuantidade(${produto.id}, -1)">
-                        -
-                    </button>
+    <button onclick="alterarQuantidade(${produto.id}, -1)">
+        -
+    </button>
 
+    <span id="qtd-${produto.id}">
+        ${carrinho.find(i => i.id === produto.id)?.quantidade || 0}
+    </span>
 
-                    <span id="qtd-${produto.id}">
-                        0
-                    </span>
+    <button onclick="alterarQuantidade(${produto.id}, 1)">
+        +
+    </button>
 
-
-                    <button onclick="alterarQuantidade(${produto.id}, 1)">
-                        +
-                    </button>
-
-                `;
+`;
 
 
                containerCategoria.appendChild(div);
