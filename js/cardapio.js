@@ -53,6 +53,59 @@ lista.appendChild(containerCategoria);
 
     div.className = "produto";
 
+              let imagem = "";
+
+switch(produto.categoria){
+
+    case "Cafeteria":
+
+        if(
+            produto.nome.toLowerCase().includes("cappuccino") ||
+            produto.nome.toLowerCase().includes("frapp") ||
+            produto.nome.toLowerCase().includes("affogato")
+        ){
+
+            imagem = "img/produtos/cappuccino-espresso.webp";
+
+        }else{
+
+            imagem = "img/produtos/cafe-espresso.webp";
+
+        }
+
+    break;
+
+
+    case "Bebidas":
+
+        if(produto.nome.toLowerCase().includes("água") ||
+           produto.nome.toLowerCase().includes("agua")){
+
+            imagem = "img/produtos/aguas.webp";
+
+        }
+        else if(produto.nome.toLowerCase().includes("vinho")){
+
+            imagem = "img/produtos/cervejas.webp";
+
+        }
+        else{
+
+            imagem = "img/produtos/refrigerantes.webp";
+
+        }
+
+    break;
+
+
+    case "Doces":
+
+        imagem = "img/produtos/sobremesas.webp";
+
+    break;
+
+}
+
 
                 div.innerHTML = `
 
