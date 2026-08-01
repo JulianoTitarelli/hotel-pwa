@@ -86,3 +86,27 @@ body {
     font-size:18px;
 
 }
+.categoria {
+
+    background: #8b0000;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+
+
+.grupo-categoria {
+
+    overflow: hidden;
+    transition: 0.3s;
+
+}
+
+
+.grupo-categoria.fechado {
+
+    display: none;
+
+}
