@@ -97,9 +97,9 @@ R$ ${total.innerHTML}`
     if(confirmar){
 
         window.open(
-            "https://wa.me/?text=" + texto,
-            "_blank"
-        );
+    "https://wa.me/5516991180878?text=" + texto,
+    "_blank"
+);
 
     }
 
