@@ -6,10 +6,17 @@ body {
 
 
 .topo {
+
     text-align: center;
-    background: #8b0000;
+
+    background: linear-gradient(135deg, #1f5f8b, #3a8fb7);
+
     color: white;
+
     padding: 20px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.18);
+
 }
 
 
