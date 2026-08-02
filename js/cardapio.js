@@ -28,6 +28,9 @@ const imagensCategoria = {
 
 function obterImagem(produto){
 
+    console.log("Categoria:", produto.categoria);
+    console.log("Produto:", produto.nome);
+
     const nome = produto.nome.toLowerCase();
 
 
