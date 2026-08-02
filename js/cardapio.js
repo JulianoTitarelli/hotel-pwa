@@ -120,10 +120,20 @@ function carregarProdutos(filtro = ""){
 
         titulo.className = "categoria";
 
-        titulo.innerHTML = `
-            🍽️ ${categoria}
-            <span>▼</span>
-        `;
+       const icones = {
+    "Lanches":"🍔",
+    "Pratos feitos":"🍛",
+    "Salgados":"🥟",
+    "Doces":"🍰",
+    "Petiscos":"🍟",
+    "Bebidas":"🥤",
+    "Cafeteria":"☕"
+};
+
+titulo.innerHTML = `
+${icones[categoria] || "🍽️"} ${categoria}
+<span>▼</span>
+`;
 
 
 
