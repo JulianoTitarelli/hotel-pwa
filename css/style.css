@@ -20,21 +20,44 @@ body {
 .inicio {
 
     text-align: center;
-    background: #F9C80E;
-    color: #5A3A00;
-    padding: 35px 20px;
+
+    color: white;
+
+    padding: 60px 20px 50px;
+
+    background:
+
+    linear-gradient(
+        rgba(90,58,0,0.65),
+        rgba(139,0,0,0.75)
+    ),
+
+    url("../img/vista-hotel.webp");
+
+    background-size: cover;
+
+    background-position: center;
+
+    border-radius: 0 0 35px 35px;
 
 }
 
 
 .inicio img {
 
-    width: 130px;
-    height: 130px;
-    object-fit: contain;
-    border-radius: 50%;
-    background: white;
-    padding: 10px;
+    width:130px;
+    height:130px;
+
+    object-fit:contain;
+
+    border-radius:50%;
+
+    background:white;
+
+    padding:10px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.35);
 
 }
 
