@@ -448,7 +448,7 @@ function abrirCarrinho(){
 
 carregarProdutos();
 // ===========================
-// ESCONDER / MOSTRAR CARRINHO AO ROLAR
+// ESCONDER CARRINHO AO ROLAR
 // ===========================
 
 let ultimaRolagem = window.scrollY;
@@ -459,11 +459,25 @@ window.addEventListener("scroll", () => {
 
     if (!barra) return;
 
-    if (window.scrollY > ultimaRolagem + 10) {
+    const atual = window.scrollY;
+
+    // Sempre mostra no topo da página
+    if (atual < 50) {
+        barra.classList.remove("carrinho-escondido");
+        ultimaRolagem = atual;
+        return;
+    }
+
+    // Descendo
+    if (atual > ultimaRolagem + 10) {
         barra.classList.add("carrinho-escondido");
-    } else if (window.scrollY < ultimaRolagem - 10) {
+    }
+
+    // Subindo
+    if (atual < ultimaRolagem - 10) {
         barra.classList.remove("carrinho-escondido");
     }
 
-    ultimaRolagem = window.scrollY;
+    ultimaRolagem = atual;
+
 });
