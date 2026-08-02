@@ -13,12 +13,12 @@ const busca = document.getElementById("buscar");
 // ===========================
 
 const imagensCategoria = {
-
     "Salgados": "img/salgados.webp",
     "Lanches": "img/lanche.webp",
-    "Pratos Feitos": "img/pf.webp?v=1",
+    "Pratos Feitos": "img/pf.webp",
     "Doces": "img/sobremesas.webp",
     "Petiscos": "img/petiscos.webp"
+};
 
 };
 
