@@ -122,7 +122,7 @@ break;
 
 case "Pratos Feitos":
 
-    imagem = "img/pf.webp";
+    imagem = "img/aguas.webp";
 
 break;
 
