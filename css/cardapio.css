@@ -232,17 +232,6 @@ body {
 
 }
 
-
-/* Espaço preparado para futuras imagens */
-
-.produto::before {
-
-    content: "📷";
-    display: block;
-    font-size: 45px;
-    margin-bottom: 10px;
-
-}
 /* ===== IMAGENS DOS PRODUTOS ===== */
 
 .foto-produto{
