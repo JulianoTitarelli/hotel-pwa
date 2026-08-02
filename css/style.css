@@ -23,7 +23,7 @@ body {
 
     color: white;
 
-    padding: 60px 20px 50px;
+    padding: 35px 20px 30px;
 
     background-image: url("../img/vista-hotel.webp");
 
@@ -31,33 +31,25 @@ body {
 
     background-position: center;
 
-    border-radius: 0 0 35px 35px;
-
-    .inicio h1,
-.inicio p,
-.inicio span {
-
-    text-shadow:
-    0 2px 5px rgba(0,0,0,.6);
+    border-radius: 0 0 30px 30px;
 
 }
 
 
 .inicio img {
 
-    width:130px;
-    height:130px;
+    width: 100px;
+    height: 100px;
 
-    object-fit:contain;
+    object-fit: contain;
 
-    border-radius:50%;
+    border-radius: 50%;
 
-    background:white;
+    background: white;
 
-    padding:10px;
+    padding: 8px;
 
-    box-shadow:
-    0 5px 20px rgba(90,58,0,.25);
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
 
 }
 
@@ -104,7 +96,6 @@ body {
 }
 
 
-
 /* BOTÕES */
 
 .opcao {
@@ -121,12 +112,12 @@ body {
 
     border-radius: 18px;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.15);
 
-    transition: 0.3s;
+    transition: .3s;
 
 }
-
 
 .opcao:hover {
 
