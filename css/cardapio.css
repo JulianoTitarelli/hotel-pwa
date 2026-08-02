@@ -102,11 +102,27 @@ body {
 }
 .categoria {
 
-    background: #8b0000;
-    color: white;
+    background: #9ed8f5;
+
+    color: #1f4f6b;
+
     padding: 12px;
-    border-radius: 8px;
+
+    border-radius: 12px;
+
     cursor: pointer;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,.12);
+
+    transition: .3s;
+
+}
+
+.categoria:hover {
+
+    background: #bde7fa;
+
+    transform: translateY(-2px);
 
 }
 
