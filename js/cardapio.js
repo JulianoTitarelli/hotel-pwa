@@ -447,3 +447,26 @@ function abrirCarrinho(){
 // ===========================
 
 carregarProdutos();
+// ===========================
+// ESCONDER / MOSTRAR CARRINHO AO ROLAR
+// ===========================
+
+let ultimaPosicao = window.scrollY;
+
+window.addEventListener("scroll", () => {
+
+    const carrinho = document.querySelector(".nome-da-classe-do-carrinho");
+
+    if (!carrinho) return;
+
+    if (window.scrollY > ultimaPosicao) {
+        // Descendo a página
+        carrinho.classList.add("carrinho-escondido");
+    } else {
+        // Subindo a página
+        carrinho.classList.remove("carrinho-escondido");
+    }
+
+    ultimaPosicao = window.scrollY;
+
+});
