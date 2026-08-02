@@ -21,24 +21,24 @@ body {
 
     text-align: center;
 
-    color: #5A3A00;
+    color: white;
 
     padding: 60px 20px 50px;
 
-    background:
-
-    linear-gradient(
-        rgba(255,255,255,0.78),
-        rgba(255,248,225,0.88)
-    ),
-
-    url("../img/vista-hotel.webp");
+    background-image: url("../img/vista-hotel.webp");
 
     background-size: cover;
 
     background-position: center;
 
     border-radius: 0 0 35px 35px;
+
+    .inicio h1,
+.inicio p,
+.inicio span {
+
+    text-shadow:
+    0 2px 5px rgba(0,0,0,.6);
 
 }
 
