@@ -16,7 +16,7 @@ const imagensCategoria = {
 
     "Salgados": "img/salgados.webp",
     "Lanches": "img/lanche.webp",
-    "Pratos Feitos": "img/pf.webp",
+    "Pratos Feitos": "img/pf.webp?v=1",
     "Doces": "img/sobremesas.webp",
     "Petiscos": "img/petiscos.webp"
 
