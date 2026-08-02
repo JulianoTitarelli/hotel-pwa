@@ -7,79 +7,110 @@ const quantidadeItens = document.getElementById("quantidade-itens");
 const pedido = document.getElementById("pedido");
 const busca = document.getElementById("buscar");
 
+
 // ===========================
 // IMAGENS DAS CATEGORIAS
 // ===========================
 
 const imagensCategoria = {
+
     "Salgados": "img/salgados.webp",
     "Lanches": "img/lanche.webp",
     "Pratos Feitos": "img/pf.webp",
     "Doces": "img/sobremesas.webp",
     "Petiscos": "img/petiscos.webp"
+
 };
 
+
 // ===========================
-// ESCOLHE A IMAGEM
+// ESCOLHE IMAGEM DO PRODUTO
 // ===========================
 
 function obterImagem(produto){
 
-    if(produto.categoria === "Cafeteria"){
+    const nome = produto.nome.toLowerCase();
 
-        const nome = produto.nome.toLowerCase();
+
+    if(produto.categoria === "Cafeteria"){
 
         if(
             nome.includes("cappuccino") ||
             nome.includes("frapp") ||
             nome.includes("affogato")
         ){
+
             return "img/cappuccino-espresso.webp";
+
         }
 
         return "img/cafe-espresso.webp";
+
     }
 
 
     if(produto.categoria === "Bebidas"){
 
-        const nome = produto.nome.toLowerCase();
+        if(
+            nome.includes("água") ||
+            nome.includes("agua")
+        ){
 
-        if(nome.includes("água") || nome.includes("agua")){
             return "img/aguas.webp";
+
         }
+
 
         if(nome.includes("vinho")){
+
             return "img/cervejas.webp";
+
         }
 
+
         return "img/refrigerantes.webp";
+
     }
 
 
     return imagensCategoria[produto.categoria] || "";
+
 }
 
+
 // ===========================
-// CARREGA PRODUTOS
+// CARREGAR PRODUTOS
 // ===========================
 
 function carregarProdutos(filtro = ""){
 
+
     lista.innerHTML = "";
 
-    const categorias = [...new Set(produtos.map(p => p.categoria))];
 
-    categorias.forEach(categoria=>{
+    const categorias = [
+        ...new Set(produtos.map(p => p.categoria))
+    ];
 
-        const itens = produtos.filter(produto=>
+
+
+    categorias.forEach(categoria => {
+
+
+        const itens = produtos.filter(produto =>
 
             produto.categoria === categoria &&
-            produto.nome.toLowerCase().includes(filtro.toLowerCase())
+
+            produto.nome
+            .toLowerCase()
+            .includes(filtro.toLowerCase())
 
         );
 
+
         if(itens.length === 0) return;
+
+
 
         const titulo = document.createElement("h2");
 
@@ -90,12 +121,19 @@ function carregarProdutos(filtro = ""){
             <span>▼</span>
         `;
 
+
+
         const container = document.createElement("div");
 
         container.className = "grupo-categoria";
 
+
+
         lista.appendChild(titulo);
+
         lista.appendChild(container);
+
+
 
         titulo.onclick = ()=>{
 
@@ -103,138 +141,305 @@ function carregarProdutos(filtro = ""){
 
         };
 
+
+
         itens.forEach(produto=>{
 
+
+            const itemCarrinho =
+            carrinho.find(i=>i.id === produto.id);
+
+
+
             const quantidade =
-                carrinho.find(i=>i.id===produto.id)?.quantidade || 0;
+            itemCarrinho ? itemCarrinho.quantidade : 0;
+
+
 
             const imagem = obterImagem(produto);
+
+
 
             const card = document.createElement("div");
 
             card.className = "produto";
 
+
+
             card.innerHTML = `
+
 
                 ${
                     imagem
-                    ? `<img src="${imagem}" class="foto-produto" alt="${produto.nome}">`
-                    : ""
+                    ?
+                    `<img src="${imagem}" 
+                    class="foto-produto"
+                    alt="${produto.nome}">`
+                    :
+                    ""
                 }
 
+
+
                 <h3>${produto.nome}</h3>
+
 
                 <p>
                     R$ ${produto.preco.toFixed(2)}
                 </p>
 
-                <button onclick="alterarQuantidade(${produto.id},-1)">−</button>
 
-                <span id="qtd-${produto.id}">
-                    ${quantidade}
-                </span>
 
-                <button onclick="alterarQuantidade(${produto.id},1)">+</button>
+                <div class="controle">
+
+                    <button onclick="alterarQuantidade(${produto.id},-1)">
+                        −
+                    </button>
+
+
+                    <span>
+                        ${quantidade}
+                    </span>
+
+
+                    <button onclick="alterarQuantidade(${produto.id},1)">
+                        +
+                    </button>
+
+                </div>
+
 
             `;
 
+
             container.appendChild(card);
+
 
         });
 
+
     });
 
+
 }
+
+
 // ===========================
-// ALTERA QUANTIDADE
+// ALTERAR QUANTIDADE
 // ===========================
 
-function alterarQuantidade(id, quantidade){
+function alterarQuantidade(id, valor){
 
-    const produto = produtos.find(p => p.id === id);
 
-    let item = carrinho.find(i => i.id === id);
+    const produto = produtos.find(p=>p.id === id);
+
+
+    let item = carrinho.find(i=>i.id === id);
+
+
 
     if(!item){
 
+
         item = {
+
             ...produto,
-            quantidade: 0
+
+            quantidade:0
+
         };
+
 
         carrinho.push(item);
 
+
     }
 
-    item.quantidade += quantidade;
+
+
+    item.quantidade += valor;
+
+
 
     if(item.quantidade <= 0){
 
-        carrinho = carrinho.filter(i => i.id !== id);
+
+        carrinho =
+        carrinho.filter(i=>i.id !== id);
+
 
     }
 
+
+
     atualizarCarrinho();
+
 
     carregarProdutos(busca.value);
 
+
 }
 
+
 // ===========================
-// ATUALIZA CARRINHO
+// ATUALIZAR CARRINHO
 // ===========================
 
 function atualizarCarrinho(){
 
+
     let valorTotal = 0;
-    let quantidadeTotal = 0;
+
+    let qtdTotal = 0;
+
+
 
     pedido.innerHTML = "";
 
+
+
     if(carrinho.length === 0){
 
-        pedido.innerHTML = "Nenhum item selecionado.";
+
+        pedido.innerHTML =
+        "Nenhum item selecionado.";
+
 
     }else{
 
+
         carrinho.forEach(item=>{
 
-            valorTotal += item.preco * item.quantidade;
-            quantidadeTotal += item.quantidade;
+
+            valorTotal +=
+            item.preco * item.quantidade;
+
+
+            qtdTotal += item.quantidade;
+
+
 
             pedido.innerHTML += `
+
                 <p>
-                    <strong>${item.quantidade}x</strong>
-                    ${item.nome}
+
+                <strong>
+                ${item.quantidade}x
+                </strong>
+
+                ${item.nome}
+
                 </p>
+
             `;
+
 
         });
 
+
     }
 
-    total.innerHTML = valorTotal.toFixed(2);
-    totalResumo.innerHTML = valorTotal.toFixed(2);
-    quantidadeItens.innerHTML = quantidadeTotal;
+
+
+    total.innerHTML =
+    valorTotal.toFixed(2);
+
+
+    totalResumo.innerHTML =
+    valorTotal.toFixed(2);
+
+
+    quantidadeItens.innerHTML =
+    qtdTotal;
+
 
 }
 
 
+// ===========================
+// ENVIAR PEDIDO WHATSAPP
+// ===========================
 
-// Pesquisa
-busca.addEventListener("input", () => {
+function enviarPedido(){
+
+
+    if(carrinho.length === 0){
+
+        alert("Selecione algum produto antes de enviar.");
+
+        return;
+
+    }
+
+
+
+    let mensagem =
+    "🍽️ *Pedido Hotel do Baú*%0A%0A";
+
+
+
+    carrinho.forEach(item=>{
+
+
+        mensagem +=
+        `${item.quantidade}x ${item.nome} - R$ ${(item.preco * item.quantidade).toFixed(2)}%0A`;
+
+
+    });
+
+
+
+    mensagem +=
+    `%0A💰 Total: R$ ${total.innerHTML}`;
+
+
+
+    const numero =
+    "5500000000000"; // trocar pelo WhatsApp do hotel
+
+
+
+    window.open(
+        `https://wa.me/${numero}?text=${mensagem}`,
+        "_blank"
+    );
+
+
+}
+
+
+// ===========================
+// BUSCA
+// ===========================
+
+busca.addEventListener("input",()=>{
 
     carregarProdutos(busca.value);
 
 });
 
 
-// Inicia página
-carregarProdutos();
+// ===========================
+// ABRIR / FECHAR CARRINHO
+// ===========================
+
 function abrirCarrinho(){
 
-    const painel = document.getElementById("painel-carrinho");
 
-    painel.classList.toggle("painel-fechado");
+    const painel =
+    document.getElementById("painel-carrinho");
+
+
+    painel.classList.toggle(
+        "painel-fechado"
+    );
+
 
 }
+
+
+// ===========================
+// INICIAR
+// ===========================
+
+carregarProdutos();
