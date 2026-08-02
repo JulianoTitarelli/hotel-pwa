@@ -11,7 +11,7 @@ body {
 
     background-image: url("../img/fundo-cardapio.webp");
 
-    background-size: cover;
+    background-size: 100% auto;
 
     background-position: top center;
 
