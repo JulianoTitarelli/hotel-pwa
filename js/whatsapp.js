@@ -114,7 +114,7 @@ function criarWhatsappRecepcao(){
 
     botao.target = "_blank";
 
-    botao.innerHTML = "https://img.icons8.com/?size=100&id=16713&format=png&color=000000";
+    botao.innerHTML = "💬";
 
     botao.className = "whatsapp-fixo";
 
