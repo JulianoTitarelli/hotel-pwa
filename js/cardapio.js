@@ -1,6 +1,5 @@
 let carrinho = [];
 
-
 const lista = document.getElementById("lista-produtos");
 const total = document.getElementById("total");
 const totalResumo = document.getElementById("total-resumo");
@@ -8,192 +7,166 @@ const quantidadeItens = document.getElementById("quantidade-itens");
 const pedido = document.getElementById("pedido");
 const busca = document.getElementById("buscar");
 
+// ===========================
+// IMAGENS DAS CATEGORIAS
+// ===========================
 
-// Carrega produtos na tela
-function carregarProdutos(filtro = "") {
+const imagensCategoria = {
+    "Salgados": "img/salgados.webp",
+    "Lanches": "img/lanche.webp",
+    "Pratos Feitos": "img/pf.webp",
+    "Doces": "img/sobremesas.webp",
+    "Petiscos": "img/petiscos.webp"
+};
+
+// ===========================
+// ESCOLHE A IMAGEM
+// ===========================
+
+function obterImagem(produto){
+
+    if(produto.categoria === "Cafeteria"){
+
+        const nome = produto.nome.toLowerCase();
+
+        if(
+            nome.includes("cappuccino") ||
+            nome.includes("frapp") ||
+            nome.includes("affogato")
+        ){
+            return "img/cappuccino-espresso.webp";
+        }
+
+        return "img/cafe-espresso.webp";
+    }
+
+
+    if(produto.categoria === "Bebidas"){
+
+        const nome = produto.nome.toLowerCase();
+
+        if(nome.includes("água") || nome.includes("agua")){
+            return "img/aguas.webp";
+        }
+
+        if(nome.includes("vinho")){
+            return "img/cervejas.webp";
+        }
+
+        return "img/refrigerantes.webp";
+    }
+
+
+    return imagensCategoria[produto.categoria] || "";
+}
+
+// ===========================
+// CARREGA PRODUTOS
+// ===========================
+
+function carregarProdutos(filtro = ""){
 
     lista.innerHTML = "";
 
     const categorias = [...new Set(produtos.map(p => p.categoria))];
 
+    categorias.forEach(categoria=>{
 
-    categorias.forEach(categoria => {
+        const itens = produtos.filter(produto=>
 
-        const itens = produtos.filter(produto => 
             produto.categoria === categoria &&
             produto.nome.toLowerCase().includes(filtro.toLowerCase())
+
         );
 
+        if(itens.length === 0) return;
 
-        if(itens.length > 0){
+        const titulo = document.createElement("h2");
 
-            const titulo = document.createElement("h2");
+        titulo.className = "categoria";
 
-titulo.className = "categoria";
+        titulo.innerHTML = `
+            🍽️ ${categoria}
+            <span>▼</span>
+        `;
 
-titulo.innerHTML = `
-    🍽️ ${categoria}
-    <span>▼</span>
-`;
+        const container = document.createElement("div");
 
+        container.className = "grupo-categoria";
 
-const containerCategoria = document.createElement("div");
+        lista.appendChild(titulo);
+        lista.appendChild(container);
 
-containerCategoria.className = "grupo-categoria";
+        titulo.onclick = ()=>{
 
+            container.classList.toggle("fechado");
 
-lista.appendChild(titulo);
+        };
 
-lista.appendChild(containerCategoria);
+        itens.forEach(produto=>{
 
+            const quantidade =
+                carrinho.find(i=>i.id===produto.id)?.quantidade || 0;
 
-          itens.forEach(produto => {
+            const imagem = obterImagem(produto);
 
-    const div = document.createElement("div");
+            const card = document.createElement("div");
 
-    div.className = "produto";
+            card.className = "produto";
 
-              let imagem = "";
+            card.innerHTML = `
 
-switch(produto.categoria){
+                ${
+                    imagem
+                    ? `<img src="${imagem}" class="foto-produto" alt="${produto.nome}">`
+                    : ""
+                }
 
-    case "Cafeteria":
+                <h3>${produto.nome}</h3>
 
-        if(
-            produto.nome.toLowerCase().includes("cappuccino") ||
-            produto.nome.toLowerCase().includes("frapp") ||
-            produto.nome.toLowerCase().includes("affogato")
-        ){
+                <p>
+                    R$ ${produto.preco.toFixed(2)}
+                </p>
 
-            imagem = "img/cappuccino-espresso.webp";
+                <button onclick="alterarQuantidade(${produto.id},-1)">−</button>
 
-        } else {
+                <span id="qtd-${produto.id}">
+                    ${quantidade}
+                </span>
 
-            imagem = "img/cafe-espresso.webp";
+                <button onclick="alterarQuantidade(${produto.id},1)">+</button>
 
-        }
+            `;
 
-    break;
+            container.appendChild(card);
 
-
-    case "Bebidas":
-
-        if(
-            produto.nome.toLowerCase().includes("água") ||
-            produto.nome.toLowerCase().includes("agua")
-        ){
-
-            imagem = "img/aguas.webp";
-
-        }
-        else if(produto.nome.toLowerCase().includes("vinho")){
-
-            imagem = "img/cervejas.webp";
-
-        }
-        else{
-
-            imagem = "img/refrigerantes.webp";
-
-        }
-
-    break;
-
-
-case "Salgados":
-
-    imagem = "img/salgados.webp";
-
-break;
-
-
-case "Doces":
-
-    imagem = "img/sobremesas.webp";
-
-break;
-
-        case "Lanches":
-
-    imagem = "img/lanche.webp";
-
-break;
-
-
-case "Pratos Feitos":
-
-    imagem = "img/aguas.webp";
-
-break;
-
-}
-
-
-               div.innerHTML = `
-
-    ${imagem ? `<img src="${imagem}" class="foto-produto" alt="${produto.nome}">` : ""}
-
-    <h3>${produto.nome}</h3>
-
-    <p>
-        R$ ${produto.preco.toFixed(2)}
-    </p>
-
-    <button onclick="alterarQuantidade(${produto.id}, -1)">
-        -
-    </button>
-
-    <span id="qtd-${produto.id}">
-        ${carrinho.find(i => i.id === produto.id)?.quantidade || 0}
-    </span>
-
-    <button onclick="alterarQuantidade(${produto.id}, 1)">
-        +
-    </button>
-
-`;
-
-
-               containerCategoria.appendChild(div);
-
-            });
-            titulo.onclick = () => {
-
-    containerCategoria.classList.toggle("fechado");
-
-};
-
-        }
+        });
 
     });
 
 }
+// ===========================
+// ALTERA QUANTIDADE
+// ===========================
 
-
-
-// Alterar quantidade
 function alterarQuantidade(id, quantidade){
 
     const produto = produtos.find(p => p.id === id);
 
-
     let item = carrinho.find(i => i.id === id);
-
 
     if(!item){
 
         item = {
             ...produto,
-            quantidade:0
+            quantidade: 0
         };
 
         carrinho.push(item);
 
     }
 
-
     item.quantidade += quantidade;
-
 
     if(item.quantidade <= 0){
 
@@ -201,57 +174,48 @@ function alterarQuantidade(id, quantidade){
 
     }
 
-
     atualizarCarrinho();
 
     carregarProdutos(busca.value);
 
 }
 
+// ===========================
+// ATUALIZA CARRINHO
+// ===========================
 
-
-// Atualiza carrinho
 function atualizarCarrinho(){
-
-    pedido.innerHTML = "";
-
 
     let valorTotal = 0;
     let quantidadeTotal = 0;
 
+    pedido.innerHTML = "";
 
     if(carrinho.length === 0){
 
-        pedido.innerHTML = 
-        "Nenhum item selecionado.";
+        pedido.innerHTML = "Nenhum item selecionado.";
+
+    }else{
+
+        carrinho.forEach(item=>{
+
+            valorTotal += item.preco * item.quantidade;
+            quantidadeTotal += item.quantidade;
+
+            pedido.innerHTML += `
+                <p>
+                    <strong>${item.quantidade}x</strong>
+                    ${item.nome}
+                </p>
+            `;
+
+        });
 
     }
 
-
-    carrinho.forEach(item => {
-
-
-        valorTotal += item.preco * item.quantidade;
-
-quantidadeTotal += item.quantidade;
-
-
-        pedido.innerHTML += `
-
-        <p>
-        ${item.nome} x ${item.quantidade}
-        </p>
-
-        `;
-
-    });
-
-
     total.innerHTML = valorTotal.toFixed(2);
     totalResumo.innerHTML = valorTotal.toFixed(2);
-
-quantidadeItens.innerHTML = quantidadeTotal;
-
+    quantidadeItens.innerHTML = quantidadeTotal;
 
 }
 
