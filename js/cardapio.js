@@ -395,7 +395,7 @@ function enviarPedido(){
 
 
     const numero =
-    "5500000000000"; // trocar pelo WhatsApp do hotel
+    "5516991180878";
 
 
 
