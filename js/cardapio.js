@@ -18,7 +18,6 @@ const imagensCategoria = {
     "Pratos Feitos": "img/pf.webp",
     "Doces": "img/sobremesas.webp",
     "Petiscos": "img/petiscos.webp"
-};
 
 };
 
@@ -39,13 +38,10 @@ function obterImagem(produto){
             nome.includes("frapp") ||
             nome.includes("affogato")
         ){
-
             return "img/cappuccino-espresso.webp";
-
         }
 
         return "img/cafe-espresso.webp";
-
     }
 
 
@@ -55,21 +51,26 @@ function obterImagem(produto){
             nome.includes("água") ||
             nome.includes("agua")
         ){
-
             return "img/aguas.webp";
-
         }
 
 
         if(nome.includes("vinho")){
-
             return "img/cervejas.webp";
-
         }
 
 
         return "img/refrigerantes.webp";
+    }
 
+
+    if(produto.categoria === "Pratos Feitos"){
+        return "img/pf.webp";
+    }
+
+
+    if(produto.categoria === "Lanches"){
+        return "img/lanche.webp";
     }
 
 
