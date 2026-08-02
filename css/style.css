@@ -57,10 +57,18 @@ body {
 .inicio h1 {
 
     margin: 15px 0 5px;
-    font-size: 32px;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 38px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-shadow: 0 3px 8px rgba(0,0,0,.45);
 
 }
-
 
 .inicio p {
 
