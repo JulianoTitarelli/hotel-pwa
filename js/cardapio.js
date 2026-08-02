@@ -115,7 +115,7 @@ break;
 
         case "Lanches":
 
-    imagem = "img/lanches.webp";
+    imagem = "img/lanche.webp";
 
 break;
 
