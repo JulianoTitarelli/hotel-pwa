@@ -102,7 +102,7 @@ const produtos = [
 
     {
         id: 15,
-        nome: "Cappuccino Canela",
+        nome: "Mochacccino de Canela",
         categoria: "Cafeteria",
         preco: 11.00
     },
