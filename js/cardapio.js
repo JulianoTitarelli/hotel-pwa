@@ -451,22 +451,19 @@ carregarProdutos();
 // ESCONDER / MOSTRAR CARRINHO AO ROLAR
 // ===========================
 
-let ultimaPosicao = window.scrollY;
+let ultimaRolagem = window.scrollY;
 
 window.addEventListener("scroll", () => {
 
-    const carrinho = document.querySelector(".nome-da-classe-do-carrinho");
+    const barra = document.querySelector(".carrinho");
 
-    if (!carrinho) return;
+    if (!barra) return;
 
-    if (window.scrollY > ultimaPosicao) {
-        // Descendo a página
-        carrinho.classList.add("carrinho-escondido");
-    } else {
-        // Subindo a página
-        carrinho.classList.remove("carrinho-escondido");
+    if (window.scrollY > ultimaRolagem + 10) {
+        barra.classList.add("carrinho-escondido");
+    } else if (window.scrollY < ultimaRolagem - 10) {
+        barra.classList.remove("carrinho-escondido");
     }
 
-    ultimaPosicao = window.scrollY;
-
+    ultimaRolagem = window.scrollY;
 });
