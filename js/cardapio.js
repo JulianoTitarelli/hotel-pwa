@@ -15,7 +15,7 @@ const busca = document.getElementById("buscar");
 const imagensCategoria = {
     "Salgados": "img/salgados.webp",
     "Lanches": "img/lanche.webp",
-    "Pratos Feitos": "img/pf.webp",
+    "Pratos Feitos": "img/lanche.webp",
     "Doces": "img/sobremesas.webp",
     "Petiscos": "img/petiscos.webp"
 
