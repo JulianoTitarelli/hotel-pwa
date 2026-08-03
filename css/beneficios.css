@@ -34,24 +34,56 @@ body {
 }
 
 .cardapio-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 30px;
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+
+    padding:35px;
+
+    max-width:1300px;
+
+    margin:auto;
 }
 
 
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+     background:#fff;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+    transition:.3s;
 }
 
+.card:hover{
 
-.card h2 {
-    margin-top: 0;
+    transform:translateY(-6px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+    
+}
+
+.card h2{
+
+    color:#245d88;
+
+    margin-top:0;
+
+    margin-bottom:15px;
+
+    font-family:'Playfair Display', serif;
+
+}
+
+.card p{
+
+    line-height:1.6;
+
 }
 
 
