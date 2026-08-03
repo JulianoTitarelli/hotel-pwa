@@ -5,7 +5,12 @@ body {
     color: #333;
 }
 
-   .topo{
+
+/* =========================
+   TOPO
+========================= */
+
+.topo {
 
     height:220px;
 
@@ -33,119 +38,8 @@ body {
 
 }
 
-.cardapio-container{
 
-    display:grid;
-
-    grid-template-columns:repeat(3, 1fr);
-
-    gap:20px;
-
-    max-width:1400px;
-
-    margin:35px auto;
-
-    padding:0 25px 40px;
-
-}
-
-
-.card{
-
-    position:relative;
-    
-    overflow:hidden;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    min-height:320px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:space-between;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
-
-}
-.card{
-
-    position:relative;
-    
-    overflow:hidden;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    min-height:320px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:space-between;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
-
-    transition:.3s;
-
-}
-.card::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:linear-gradient(
-        rgba(255,255,255,.55),
-        rgba(255,255,255,.35)
-    );
-
-    z-index:1;
-
-}
-.card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:0 12px 30px rgba(0,0,0,.18);
-    
-}
-
-.card h2{
-
-    font-size:22px;
-
-    color:#245d88;
-
-    margin:0 0 12px;
-
-    font-family:'Playfair Display', serif;
-
-}
-.card p{
-
-    line-height:1.6;
-
-}
-
-
-footer {
-    text-align: center;
-    padding: 20px;
-}
-
-footer a {
-    text-decoration: none;
-}
-
-.voltar{
+.voltar {
 
     position:absolute;
 
@@ -170,7 +64,13 @@ footer a {
     font-weight:bold;
 
 }
-.titulo-topo h1{
+
+
+/* =========================
+   TITULO
+========================= */
+
+.titulo-topo h1 {
 
     font-family:'Playfair Display', serif;
 
@@ -182,7 +82,8 @@ footer a {
 
 }
 
-.titulo-topo p{
+
+.titulo-topo p {
 
     margin-top:8px;
 
@@ -191,7 +92,149 @@ footer a {
     text-shadow:0 2px 6px rgba(0,0,0,.5);
 
 }
-.card ul{
+
+
+/* =========================
+   GRID DOS CARDS
+========================= */
+
+.cardapio-container {
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+
+    max-width:1400px;
+
+    margin:35px auto;
+
+    padding:0 25px 40px;
+
+}
+
+
+
+/* =========================
+   CARDS COM IMAGEM
+========================= */
+
+.card {
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    min-height:320px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+}
+
+
+/* imagem de fundo */
+
+.card::before {
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:var(--imagem);
+
+    background-size:cover;
+
+    background-position:center;
+
+    z-index:0;
+
+}
+
+
+
+/* camada para leitura do texto */
+
+.card::after {
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        rgba(255,255,255,.75),
+        rgba(255,255,255,.60)
+    );
+
+    z-index:1;
+
+}
+
+
+/* mantém conteúdo acima da imagem */
+
+.card > * {
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+
+.card:hover {
+
+    transform:translateY(-6px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+
+}
+
+
+
+/* =========================
+   TEXTOS
+========================= */
+
+.card h2 {
+
+    font-size:22px;
+
+    color:#245d88;
+
+    margin:0 0 12px;
+
+    font-family:'Playfair Display', serif;
+
+}
+
+
+.card p {
+
+    line-height:1.6;
+
+}
+
+
+
+.card ul {
 
     list-style:none;
 
@@ -201,7 +244,9 @@ footer a {
 
 }
 
-.card li{
+
+
+.card li {
 
     padding:8px 0;
 
@@ -209,7 +254,13 @@ footer a {
 
 }
 
-.botoes{
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.botoes {
 
     display:grid;
 
@@ -219,7 +270,9 @@ footer a {
 
 }
 
-.botoes a{
+
+
+.botoes a {
 
     padding:10px;
 
@@ -227,62 +280,91 @@ footer a {
 
     border-radius:10px;
 
+    text-align:center;
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.2s;
+
 }
-.botoes a:hover{
+
+
+
+.botoes a:hover {
 
     transform:scale(1.03);
 
 }
 
-.maps{
+
+
+.maps {
 
     background:#4285F4;
 
 }
 
-.whats{
+
+.whats {
 
     background:#25D366;
 
 }
 
-.fone{
+
+.fone {
 
     background:#444;
 
 }
 
-.instagram{
+
+.instagram {
 
     background:#C13584;
 
 }
 
-.site{
+
+.site {
 
     background:#0099cc;
 
 }
-.card > *{
 
-    position:relative;
 
-    z-index:2;
+
+/* =========================
+   RODAPÉ
+========================= */
+
+footer {
+
+    text-align:center;
+
+    padding:20px;
 
 }
 
 
-.card::before,
-.card::after{
+footer a {
 
-    pointer-events:none;
+    text-decoration:none;
 
 }
+
+
+
+/* =========================
+   RESPONSIVO
+========================= */
 
 
 @media (max-width:1000px){
 
-    .cardapio-container{
+    .cardapio-container {
 
         grid-template-columns:repeat(2,1fr);
 
@@ -291,11 +373,19 @@ footer a {
 }
 
 
+
 @media (max-width:700px){
 
-    .cardapio-container{
+    .cardapio-container {
 
         grid-template-columns:1fr;
+
+    }
+
+
+    .titulo-topo h1 {
+
+        font-size:30px;
 
     }
 
