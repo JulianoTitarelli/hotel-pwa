@@ -142,3 +142,84 @@ footer a {
     text-shadow:0 2px 6px rgba(0,0,0,.5);
 
 }
+.card ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:20px 0;
+
+}
+
+.card li{
+
+    padding:8px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.botoes{
+
+    display:grid;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+.botoes a{
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.botoes a:hover{
+
+    transform:scale(1.03);
+
+}
+
+.maps{
+
+    background:#4285F4;
+
+}
+
+.whats{
+
+    background:#25D366;
+
+}
+
+.fone{
+
+    background:#444;
+
+}
+
+.instagram{
+
+    background:#C13584;
+
+}
+
+.site{
+
+    background:#0099cc;
+
+}
