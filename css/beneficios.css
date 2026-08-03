@@ -33,31 +33,41 @@ body {
 
 }
 
-.cardapio-container {
+.cardapio-container{
+
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    grid-template-columns:repeat(3, 1fr);
 
-    gap:25px;
+    gap:20px;
 
-    padding:35px;
+    max-width:1400px;
 
-    max-width:1300px;
+    margin:35px auto;
 
-    margin:auto;
+    padding:0 25px 40px;
+
 }
 
 
-.card {
-     background:#fff;
+.card{
 
-    border-radius:20px;
+    background:#fff;
 
-    padding:25px;
+    border-radius:18px;
 
-    box-shadow:0 8px 25px rgba(0,0,0,.12);
+    padding:18px;
 
-    transition:.3s;
+    box-shadow:0 6px 18px rgba(0,0,0,.12);
+
+    transition:.25s;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
 }
 
 .card:hover{
@@ -70,16 +80,15 @@ body {
 
 .card h2{
 
+    font-size:22px;
+
     color:#245d88;
 
-    margin-top:0;
-
-    margin-bottom:15px;
+    margin:0 0 12px;
 
     font-family:'Playfair Display', serif;
 
 }
-
 .card p{
 
     line-height:1.6;
@@ -172,22 +181,13 @@ footer a {
 
 .botoes a{
 
-    text-decoration:none;
+    padding:10px;
 
-    color:white;
-
-    padding:12px;
+    font-size:14px;
 
     border-radius:10px;
 
-    text-align:center;
-
-    font-weight:600;
-
-    transition:.25s;
-
 }
-
 .botoes a:hover{
 
     transform:scale(1.03);
@@ -221,5 +221,24 @@ footer a {
 .site{
 
     background:#0099cc;
+
+}
+@media (max-width:1000px){
+
+    .cardapio-container{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .cardapio-container{
+
+        grid-template-columns:1fr;
+
+    }
 
 }
