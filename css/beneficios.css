@@ -264,7 +264,12 @@ footer a {
     position:relative;
 
     z-index:2;
+.card::before,
+.card::after{
 
+    pointer-events:none;
+
+}
 }
 
 
