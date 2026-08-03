@@ -6,8 +6,33 @@ body {
 }
 
 header {
-    text-align: center;
-    padding: 20px;
+   .topo{
+
+    height:220px;
+
+    background-image:url("../img/fundo-beneficios.webp");
+
+    background-size:cover;
+
+    background-position:center;
+
+    border-radius:0 0 30px 30px;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:30px;
+
+    color:white;
+
+    text-align:center;
+
+}
 }
 
 header img {
