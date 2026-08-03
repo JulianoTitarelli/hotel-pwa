@@ -94,18 +94,12 @@ body {
 }
 .card::after{
 
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:rgba(255,255,255,.70);
-
-    z-index:1;
+    background:linear-gradient(
+        rgba(255,255,255,.82),
+        rgba(255,255,255,.65)
+    );
 
 }
-
 .card:hover{
 
     transform:translateY(-6px);
@@ -264,12 +258,15 @@ footer a {
     position:relative;
 
     z-index:2;
+
+}
+
+
 .card::before,
 .card::after{
 
     pointer-events:none;
 
-}
 }
 
 
