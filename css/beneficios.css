@@ -71,25 +71,27 @@ body {
     box-shadow:0 8px 25px rgba(0,0,0,.15);
 
 }
-.card::before{
+.card{
 
-    content:"";
+    position:relative;
+    
+    overflow:hidden;
 
-    position:absolute;
+    border-radius:20px;
 
-    inset:-15px;
+    padding:25px;
 
-    background-image:var(--imagem);
+    min-height:320px;
 
-    background-size:cover;
+    display:flex;
 
-    background-position:center;
+    flex-direction:column;
 
-    filter:blur(8px);
+    justify-content:space-between;
 
-    transform:scale(1.1);
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
 
-    z-index:0;
+    transition:.3s;
 
 }
 .card::after{
@@ -101,8 +103,9 @@ body {
     inset:0;
 
     background:linear-gradient(
-        rgba(255,255,255,.82),
-        rgba(255,255,255,.65)
+    rgba(255,255,255,.72),
+    rgba(255,255,255,.55)
+);
     );
 
     z-index:1;
