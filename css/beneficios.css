@@ -94,10 +94,18 @@ body {
 }
 .card::after{
 
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
     background:linear-gradient(
         rgba(255,255,255,.82),
         rgba(255,255,255,.65)
     );
+
+    z-index:1;
 
 }
 .card:hover{
