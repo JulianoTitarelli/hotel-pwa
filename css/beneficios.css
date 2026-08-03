@@ -77,9 +77,9 @@ body {
 
     position:absolute;
 
-    inset:-15px;
+    inset:0;
 
-    background-image:var(--imagem);
+    background-image:url("../img/salim.webp");
 
     background-size:cover;
 
