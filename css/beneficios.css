@@ -15,7 +15,7 @@ body {
 
     background-image:url("../img/fundo-beneficios.webp");
     background-size:cover;
-    background-position: bottom;
+    background-position: center 100%;
     background-repeat:no-repeat;
 
     border-radius:0 0 30px 30px;
