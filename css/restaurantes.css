@@ -9,38 +9,48 @@ body{
    CABEÇALHO
 =========================== */
 
-.topo{
-    height:320px;
-
-    background-image:url("../img/restaurantes.webp");
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center center;
-
-    background-color:#f7f2eb;
-
-    border-radius:0 0 30px 30px;
-
-    position:relative;
-}
-
-.voltar{
-    position:absolute;
-    top:20px;
-    left:20px;
+header{
 
     background:#fff;
-    color:#333;
 
-    border:none;
-    border-radius:12px;
+    text-align:center;
 
-    padding:10px 18px;
+    padding:30px 20px;
 
-    cursor:pointer;
-    font-weight:600;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
 
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    margin-bottom:30px;
+
+}
+
+header img{
+
+    width:170px;
+
+    margin-bottom:15px;
+
+}
+
+header h1{
+
+    margin:0;
+
+    font-size:38px;
+
+    color:#245d88;
+
+    font-family:'Playfair Display',serif;
+
+}
+
+header p{
+
+    margin-top:10px;
+
+    color:#666;
+
+    font-size:18px;
+
 }
 
 /* ===========================
@@ -63,13 +73,19 @@ body{
 =========================== */
 
 .card{
+
     background:#fff;
     border-radius:18px;
     overflow:hidden;
 
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
     box-shadow:0 8px 20px rgba(0,0,0,.08);
 
     transition:transform .3s, box-shadow .3s;
+
 }
 
 .card:hover{
@@ -113,7 +129,7 @@ body{
 .botao-card{
     display:block;
 
-    background:linear-gradient(135deg,#d4af37,#b99322);
+     background:#245d88;
     color:#fff;
 
     text-decoration:none;
@@ -147,3 +163,27 @@ footer a{
     text-decoration:none;
     font-weight:600;
 }
+@media (max-width:1000px){
+
+.cardapio-container{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media (max-width:700px){
+
+.cardapio-container{
+
+grid-template-columns:1fr;
+
+}
+
+header h1{
+
+font-size:30px;
+
+}
+
