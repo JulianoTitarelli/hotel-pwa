@@ -11,22 +11,16 @@ body {
 ========================= */
 
 .topo{
-    height:220px;
+    height:320px;
 
     background-image:url("../img/fundo-beneficios.webp");
-    background-size:cover;
-    background-position: center 100%;
+    background-size:contain;
     background-repeat:no-repeat;
+    background-position:center center;
+
+    background-color:#f7f2eb;
 
     border-radius:0 0 30px 30px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    position:relative;
-
-    text-align:center;
 }
 
 
