@@ -1,1 +1,32 @@
+.topo{
+    height:320px;
 
+    background-image:url("../img/academias.webp");
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center center;
+
+    background-color:#f7f2eb;
+
+    border-radius:0 0 30px 30px;
+
+    position:relative;
+}
+.voltar{
+    position:absolute;
+    top:20px;
+    left:20px;
+
+    background:#fff;
+    color:#333;
+
+    border:none;
+    border-radius:10px;
+
+    padding:10px 16px;
+    cursor:pointer;
+
+    font-weight:600;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
