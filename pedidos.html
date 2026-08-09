@@ -499,7 +499,109 @@ function mostrarPedidos(pedidos){
 
 }
 
+// ==========================================
+// AVISO DE NOVO PEDIDO
+// ==========================================
 
+let primeiraLeitura = true;
+
+
+// Pede permissão para mostrar notificações
+async function ativarNotificacoes(){
+
+    if(!("Notification" in window)){
+        return;
+    }
+
+    if(Notification.permission === "default"){
+
+        await Notification.requestPermission();
+
+    }
+
+}
+
+
+// Toca um aviso sonoro
+function tocarSomNovoPedido(){
+
+    try {
+
+        const audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.frequency.value = 880;
+
+        gain.gain.value = 0.25;
+
+        oscillator.start();
+
+        setTimeout(() => {
+
+            oscillator.stop();
+            audioContext.close();
+
+        }, 500);
+
+    } catch(erro){
+
+        console.log(
+            "Não foi possível tocar o aviso.",
+            erro
+        );
+
+    }
+
+}
+
+
+// Mostra notificação
+function avisarNovoPedido(pedido){
+
+    tocarSomNovoPedido();
+
+
+    if(
+        "Notification" in window &&
+        Notification.permission === "granted"
+    ){
+
+        const notificacao =
+            new Notification(
+                "🛎️ Novo pedido - Hotel do Baú",
+                {
+                    body:
+                        "Quarto " +
+                        pedido.quarto +
+                        " • " +
+                        dinheiro(pedido.total)
+                }
+            );
+
+
+        notificacao.onclick = function(){
+
+            window.focus();
+
+            notificacao.close();
+
+        };
+
+    }
+
+}
 
 // ==========================================
 // ESCUTAR FIREBASE EM TEMPO REAL
@@ -538,7 +640,32 @@ async function iniciarPedidos(){
         referencia,
 
         snapshot => {
+if(!primeiraLeitura){
 
+    snapshot.docChanges().forEach(
+        alteracao => {
+
+            if(alteracao.type === "added"){
+
+                const novoPedido = {
+
+                    id: alteracao.doc.id,
+
+                    ...alteracao.doc.data()
+
+                };
+
+
+                avisarNovoPedido(
+                    novoPedido
+                );
+
+            }
+
+        }
+    );
+
+}
 
             const pedidos = [];
 
@@ -1065,7 +1192,7 @@ async function cancelarPedido(id){
 // ==========================================
 // INICIAR
 // ==========================================
-
+ativarNotificacoes();
 iniciarPedidos();
 
 
