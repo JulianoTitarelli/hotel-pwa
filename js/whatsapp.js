@@ -1,10 +1,8 @@
 function enviarPedido(){
 
     if(carrinho.length === 0){
-
         alert("Adicione algum produto ao pedido.");
         return;
-
     }
 
 
@@ -23,17 +21,12 @@ function enviarPedido(){
     const observacaoCampo =
         document.getElementById("observacao");
 
-
     let observacao = "Nenhuma";
-
 
     if(observacaoCampo){
 
         if(observacaoCampo.value.trim() !== ""){
-
-            observacao =
-                observacaoCampo.value.trim();
-
+            observacao = observacaoCampo.value.trim();
         }
 
     }
@@ -44,11 +37,63 @@ function enviarPedido(){
     // ===========================
 
     if(quarto === ""){
-
         alert("Informe o número do quarto.");
         return;
-
     }
+
+
+    // ===========================
+    // CONFIRMAÇÃO
+    // ===========================
+
+    const confirmar = confirm(
+`Confirmar pedido?
+
+Quarto: ${quarto}
+
+Total: R$ ${Number(total.innerHTML).toFixed(2)}`
+    );
+
+
+    if(!confirmar){
+        return;
+    }
+
+
+    // ===========================
+    // BUSCA PEDIDOS JÁ SALVOS
+    // ===========================
+
+    let pedidosSalvos = JSON.parse(
+        localStorage.getItem("pedidosHotel")
+    ) || [];
+
+
+    // ===========================
+    // NÚMERO DA COMANDA
+    // ===========================
+
+    let numeroComanda = 1;
+
+    if(pedidosSalvos.length > 0){
+
+        const maiorNumero = Math.max(
+            ...pedidosSalvos.map(p => Number(p.numero) || 0)
+        );
+
+        numeroComanda = maiorNumero + 1;
+    }
+
+
+    // ===========================
+    // DATA E HORÁRIO
+    // ===========================
+
+    const agora = new Date();
+
+    const dataHora = agora.toLocaleString(
+        "pt-BR"
+    );
 
 
     // ===========================
@@ -57,21 +102,27 @@ function enviarPedido(){
 
     let comanda = {
 
+        numero: numeroComanda,
+
         hotel: "Hotel do Baú",
 
         quarto: quarto,
+
+        dataHora: dataHora,
 
         itens: [],
 
         observacao: observacao,
 
-        total: Number(total.innerHTML)
+        total: Number(total.innerHTML),
+
+        status: "novo"
 
     };
 
 
     // ===========================
-    // ADICIONA OS PRODUTOS
+    // PRODUTOS
     // ===========================
 
     carrinho.forEach(item => {
@@ -94,8 +145,19 @@ function enviarPedido(){
 
 
     // ===========================
-    // GUARDA A COMANDA
+    // SALVA NA LISTA DE PEDIDOS
     // ===========================
+
+    pedidosSalvos.push(comanda);
+
+    localStorage.setItem(
+        "pedidosHotel",
+        JSON.stringify(pedidosSalvos)
+    );
+
+
+    // Mantém também a última comanda
+    // para compatibilidade com a página antiga
 
     localStorage.setItem(
         "ultimaComanda",
@@ -110,9 +172,15 @@ function enviarPedido(){
     let mensagem =
 `━━━━━━━━━━━━━━
 
-🍽️ *Pedido Hotel do Baú*
+📦 *NOVO PEDIDO*
+
+🏨 *Hotel do Baú*
+
+🧾 *Comanda:* #${String(numeroComanda).padStart(3, "0")}
 
 🚪 *Quarto:* ${quarto}
+
+🕒 *Horário:* ${dataHora}
 
 ━━━━━━━━━━━━━━
 
@@ -146,27 +214,6 @@ ${observacao}
 
 
     // ===========================
-    // CONFIRMAÇÃO
-    // ===========================
-
-    const confirmar = confirm(
-`Confirmar pedido?
-
-Quarto: ${quarto}
-
-Total:
-R$ ${Number(total.innerHTML).toFixed(2)}`
-    );
-
-
-    if(!confirmar){
-
-        return;
-
-    }
-
-
-    // ===========================
     // ENVIA WHATSAPP
     // ===========================
 
@@ -175,11 +222,8 @@ R$ ${Number(total.innerHTML).toFixed(2)}`
 
 
     window.open(
-
         "https://wa.me/5516991180878?text=" + texto,
-
         "_blank"
-
     );
 
 }
@@ -194,20 +238,15 @@ function criarWhatsappRecepcao(){
     const botao =
         document.createElement("a");
 
-
     botao.href =
         "https://wa.me/5516991180878?text=Olá,%20gostaria%20de%20falar%20com%20a%20recepção%20do%20Hotel%20do%20Baú";
 
-
     botao.target = "_blank";
-
 
     botao.innerHTML = "💬";
 
-
     botao.className =
         "whatsapp-fixo";
-
 
     document.body.appendChild(botao);
 
