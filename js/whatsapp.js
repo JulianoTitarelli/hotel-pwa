@@ -143,16 +143,11 @@ Total: R$ ${Number(total.innerHTML).toFixed(2)}`
     });
 
 
-    // ===========================
+  // ===========================
 // SALVA PEDIDO NO FIREBASE
 // ===========================
 
 try {
-
-    alert(
-        "Firebase carregado: " +
-        (window.firebaseHotel ? "SIM" : "NÃO")
-    );
 
     if (!window.firebaseHotel) {
 
@@ -211,6 +206,7 @@ try {
         "Erro ao salvar pedido:",
         erro
     );
+
 
     alert(
         "❌ Não foi possível enviar o pedido para a recepção.\n\nTente novamente."
