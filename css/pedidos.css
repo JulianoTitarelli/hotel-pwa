@@ -1,0 +1,450 @@
+/* =========================================
+   CONFIGURAÇÃO GERAL
+========================================= */
+
+body {
+
+    margin:0;
+
+    font-family:'Poppins', sans-serif;
+
+    background:#f5f5f5;
+
+    color:#333;
+
+}
+
+
+/* =========================================
+   TOPO
+========================================= */
+
+.topo {
+
+    background:#f7f2eb;
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    position:relative;
+
+    border-radius:0 0 30px 30px;
+
+}
+
+
+.voltar {
+
+    position:absolute;
+
+    left:20px;
+
+    top:20px;
+
+    border:none;
+
+    background:white;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+
+}
+
+
+.titulo h1 {
+
+    margin:0;
+
+    color:#8b6b00;
+
+}
+
+
+.titulo p {
+
+    margin:5px 0 0;
+
+    color:#666;
+
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.container {
+
+    max-width:600px;
+
+    margin:40px auto;
+
+    padding:0 20px;
+
+}
+
+
+/* =========================================
+   COMANDA
+========================================= */
+
+.comanda {
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.12);
+
+}
+
+
+/* =========================================
+   CABEÇALHO DA COMANDA
+========================================= */
+
+.cabecalho-comanda {
+
+    text-align:center;
+
+}
+
+
+.cabecalho-comanda h2 {
+
+    margin:0;
+
+    font-size:24px;
+
+    letter-spacing:1px;
+
+}
+
+
+.cabecalho-comanda p {
+
+    margin:5px 0;
+
+    font-weight:bold;
+
+    font-size:14px;
+
+}
+
+
+/* =========================================
+   LINHAS
+========================================= */
+
+.linha {
+
+    border-top:1px dashed #aaa;
+
+    margin:20px 0;
+
+}
+
+
+/* =========================================
+   INFORMAÇÕES
+========================================= */
+
+.informacao {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:17px;
+
+}
+
+
+/* =========================================
+   ITENS
+========================================= */
+
+.comanda h3 {
+
+    margin-bottom:15px;
+
+}
+
+
+.item {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+.item-esquerda {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+
+.item-esquerda strong {
+
+    font-size:16px;
+
+}
+
+
+.item-esquerda small {
+
+    color:#777;
+
+    font-size:13px;
+
+}
+
+
+.subtotal {
+
+    white-space:nowrap;
+
+}
+
+
+/* =========================================
+   OBSERVAÇÃO
+========================================= */
+
+.observacao strong {
+
+    display:block;
+
+    margin-bottom:8px;
+
+}
+
+
+.observacao p {
+
+    margin:0;
+
+    background:#f7f7f7;
+
+    padding:12px;
+
+    border-radius:8px;
+
+}
+
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.total {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:20px;
+
+}
+
+
+.total strong {
+
+    font-size:24px;
+
+    color:#8b6b00;
+
+}
+
+
+/* =========================================
+   RODAPÉ DA COMANDA
+========================================= */
+
+.rodape-comanda {
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:13px;
+
+}
+
+
+/* =========================================
+   BOTÕES
+========================================= */
+
+.acoes {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+
+.botao {
+
+    border:none;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+.imprimir {
+
+    background:#25a244;
+
+    color:white;
+
+}
+
+
+.atualizar {
+
+    background:#d4af37;
+
+    color:white;
+
+}
+
+
+.botao:hover {
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 15px rgba(0,0,0,.15);
+
+}
+
+
+/* =========================================
+   SEM PEDIDO
+========================================= */
+
+.sem-pedido {
+
+    text-align:center;
+
+    padding:30px 10px;
+
+    color:#777;
+
+}
+
+
+/* =========================================
+   IMPRESSÃO
+========================================= */
+
+@media print {
+
+
+    body {
+
+        background:white;
+
+    }
+
+
+    .topo {
+
+        display:none;
+
+    }
+
+
+    .acoes {
+
+        display:none;
+
+    }
+
+
+    .container {
+
+        margin:0;
+
+        padding:0;
+
+        max-width:none;
+
+    }
+
+
+    .comanda {
+
+        box-shadow:none;
+
+        border-radius:0;
+
+        padding:10px;
+
+    }
+
+
+    .linha {
+
+        margin:12px 0;
+
+    }
+
+
+    .cabecalho-comanda h2 {
+
+        font-size:20px;
+
+    }
+
+
+    .item {
+
+        padding:8px 0;
+
+    }
+
+
+}
