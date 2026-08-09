@@ -32,10 +32,10 @@
 
     <div class="titulo">
 
-        <h1>🍽️ Pedidos</h1>
+        <h1>🧾 Pedidos Recebidos</h1>
 
         <p>
-            Comanda do Hotel do Baú
+            Área da Recepção
         </p>
 
     </div>
@@ -47,127 +47,26 @@
 <main class="container">
 
 
-    <!-- COMANDA -->
+    <div class="barra-pedidos">
 
-    <section
-        id="comanda"
-        class="comanda">
-
-
-        <div class="cabecalho-comanda">
-
-            <h2>HOTEL DO BAÚ</h2>
-
-            <p>NOVO PEDIDO</p>
-
-        </div>
-
-
-        <div class="linha"></div>
-
-
-        <!-- QUARTO -->
-
-        <div class="informacao">
-
-            <strong>🚪 Quarto:</strong>
-
-            <span id="quarto">
-                -
-            </span>
-
-        </div>
-
-
-        <div class="linha"></div>
-
-
-        <!-- PRODUTOS -->
-
-        <h3>🛒 Itens do pedido</h3>
-
-
-        <div id="itens">
-
-            <!-- Produtos aparecem aqui -->
-
-        </div>
-
-
-        <div class="linha"></div>
-
-
-        <!-- OBSERVAÇÃO -->
-
-        <div class="observacao">
-
-            <strong>📝 Observações:</strong>
-
-            <p id="observacao">
-                Nenhuma
-            </p>
-
-        </div>
-
-
-        <div class="linha"></div>
-
-
-        <!-- TOTAL -->
-
-        <div class="total">
-
-            <span>TOTAL</span>
-
-            <strong id="total">
-                R$ 0,00
-            </strong>
-
-        </div>
-
-
-        <div class="linha"></div>
-
-
-        <div class="rodape-comanda">
-
-            <p>
-                Hotel do Baú
-            </p>
-
-            <p>
-                Obrigado!
-            </p>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- BOTÕES -->
-
-    <section class="acoes">
-
+        <span id="contador-pedidos">
+            0 pedidos
+        </span>
 
         <button
-            onclick="imprimir()"
-            class="botao imprimir">
-
-            🖨️ Imprimir
-
-        </button>
-
-
-        <button
-            onclick="carregarComanda()"
+            onclick="carregarPedidos()"
             class="botao atualizar">
 
-            🔄 Atualizar pedido
+            🔄 Atualizar
 
         </button>
 
+    </div>
+
+
+    <section id="lista-pedidos">
+
+        <!-- Pedidos serão carregados aqui -->
 
     </section>
 
@@ -180,145 +79,605 @@
 
 
 // ==========================================
-// CARREGAR ÚLTIMA COMANDA
+// FORMATAR DINHEIRO
 // ==========================================
 
-function carregarComanda(){
+function dinheiro(valor){
+
+    return Number(valor).toLocaleString(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+    );
+
+}
 
 
-    const dados =
-        localStorage.getItem("ultimaComanda");
+
+// ==========================================
+// CARREGAR PEDIDOS
+// ==========================================
+
+function carregarPedidos(){
+
+    const lista =
+        document.getElementById("lista-pedidos");
+
+    lista.innerHTML = "";
 
 
-    if(!dados){
+    const pedidos =
+        JSON.parse(
+            localStorage.getItem("pedidosHotel")
+        ) || [];
 
-        document.getElementById("itens").innerHTML =
 
-            `<p class="sem-pedido">
-                Nenhum pedido encontrado.
-            </p>`;
+    document.getElementById("contador-pedidos")
+        .textContent =
+        pedidos.length === 1
+        ? "1 pedido"
+        : `${pedidos.length} pedidos`;
+
+
+    if(pedidos.length === 0){
+
+        lista.innerHTML = `
+
+            <div class="sem-pedido">
+
+                <h2>📭 Nenhum pedido</h2>
+
+                <p>
+                    Nenhuma comanda foi recebida ainda.
+                </p>
+
+            </div>
+
+        `;
 
         return;
 
     }
 
 
-    const comanda =
-        JSON.parse(dados);
+    // Mostra o mais recente primeiro
+
+    const pedidosOrdenados =
+        [...pedidos].reverse();
 
 
-    // ============================
-    // QUARTO
-    // ============================
-
-    document.getElementById("quarto")
-        .textContent =
-        comanda.quarto;
+    pedidosOrdenados.forEach(pedido => {
 
 
-    // ============================
-    // OBSERVAÇÃO
-    // ============================
-
-    document.getElementById("observacao")
-        .textContent =
-        comanda.observacao || "Nenhuma";
+        const card =
+            document.createElement("article");
 
 
-    // ============================
-    // PRODUTOS
-    // ============================
-
-    const lista =
-        document.getElementById("itens");
+        card.className = "pedido-card";
 
 
-    lista.innerHTML = "";
+        const numero =
+            String(pedido.numero)
+            .padStart(3,"0");
 
 
-    comanda.itens.forEach(item => {
+        let itensHTML = "";
 
 
-        const div =
-            document.createElement("div");
+        pedido.itens.forEach(item => {
+
+            itensHTML += `
+
+                <div class="item">
+
+                    <div class="item-esquerda">
+
+                        <strong>
+                            ${item.quantidade}x
+                            ${item.nome}
+                        </strong>
+
+                        <small>
+                            ${dinheiro(item.preco)}
+                            cada
+                        </small>
+
+                    </div>
 
 
-        div.className =
-            "item";
+                    <strong class="subtotal">
+
+                        ${dinheiro(item.subtotal)}
+
+                    </strong>
+
+                </div>
+
+            `;
+
+        });
 
 
-        const subtotal =
-            Number(item.preco) *
-            Number(item.quantidade);
+        card.innerHTML = `
+
+            <div class="pedido-topo">
+
+                <div>
+
+                    <h2>
+                        🧾 Comanda #${numero}
+                    </h2>
+
+                    <p>
+                        🚪 Quarto:
+                        <strong>${pedido.quarto}</strong>
+                    </p>
+
+                </div>
 
 
-        div.innerHTML = `
+                <span class="status ${pedido.status || "novo"}">
 
-            <div class="item-esquerda">
+                    ${
+                        pedido.status === "impresso"
+                        ? "🖨️ Impresso"
+                        : "🟢 Novo"
+                    }
 
-                <strong>
-                    ${item.quantidade}x
-                    ${item.nome}
-                </strong>
-
-                <small>
-                    R$ ${Number(item.preco).toFixed(2)}
-                    cada
-                </small>
+                </span>
 
             </div>
 
 
-            <strong class="subtotal">
+            <p class="data-hora">
 
-                R$ ${subtotal.toFixed(2)}
+                🕒 ${pedido.dataHora || ""}
 
-            </strong>
+            </p>
+
+
+            <div class="linha"></div>
+
+
+            <h3>🍽️ Itens</h3>
+
+
+            <div class="itens">
+
+                ${itensHTML}
+
+            </div>
+
+
+            <div class="linha"></div>
+
+
+            <div class="observacao">
+
+                <strong>📝 Observações</strong>
+
+                <p>
+                    ${pedido.observacao || "Nenhuma"}
+                </p>
+
+            </div>
+
+
+            <div class="linha"></div>
+
+
+            <div class="total">
+
+                <span>TOTAL</span>
+
+                <strong>
+                    ${dinheiro(pedido.total)}
+                </strong>
+
+            </div>
+
+
+            <div class="acoes-pedido">
+
+                <button
+                    onclick="imprimirPedido(${pedido.numero})"
+                    class="botao imprimir">
+
+                    🖨️ Imprimir
+
+                </button>
+
+
+                <button
+                    onclick="removerPedido(${pedido.numero})"
+                    class="botao remover">
+
+                    🗑️ Remover
+
+                </button>
+
+            </div>
 
         `;
 
 
-        lista.appendChild(div);
+        lista.appendChild(card);
+
+    });
+
+}
+
+
+
+// ==========================================
+// IMPRIMIR UM PEDIDO
+// ==========================================
+
+function imprimirPedido(numero){
+
+
+    let pedidos =
+        JSON.parse(
+            localStorage.getItem("pedidosHotel")
+        ) || [];
+
+
+    const pedido =
+        pedidos.find(
+            p => Number(p.numero) === Number(numero)
+        );
+
+
+    if(!pedido){
+
+        alert("Pedido não encontrado.");
+
+        return;
+
+    }
+
+
+    const numeroFormatado =
+        String(pedido.numero)
+        .padStart(3,"0");
+
+
+    let itensHTML = "";
+
+
+    pedido.itens.forEach(item => {
+
+        itensHTML += `
+
+            <div class="linha-item-impressao">
+
+                <span>
+                    ${item.quantidade}x ${item.nome}
+                </span>
+
+                <span>
+                    ${dinheiro(item.subtotal)}
+                </span>
+
+            </div>
+
+        `;
 
     });
 
 
-    // ============================
-    // TOTAL
-    // ============================
+    const janela =
+        window.open(
+            "",
+            "_blank",
+            "width=420,height=700"
+        );
 
-    document.getElementById("total")
-        .textContent =
-        "R$ " +
-        Number(comanda.total).toFixed(2);
+
+    janela.document.write(`
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Comanda #${numeroFormatado}</title>
+
+
+<style>
+
+@page{
+    size:80mm auto;
+    margin:3mm;
+}
+
+body{
+
+    font-family:
+    Arial,
+    sans-serif;
+
+    width:72mm;
+
+    margin:0 auto;
+
+    color:#000;
+
+    font-size:13px;
 
 }
 
+h1{
+
+    text-align:center;
+
+    margin:0;
+
+    font-size:19px;
+
+}
+
+h2{
+
+    text-align:center;
+
+    margin:5px 0;
+
+    font-size:16px;
+
+}
+
+.central{
+
+    text-align:center;
+
+}
+
+.separador{
+
+    border-top:
+    1px dashed #000;
+
+    margin:10px 0;
+
+}
+
+.destaque{
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+.linha-item-impressao{
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    gap:10px;
+
+    margin:7px 0;
+
+}
+
+.obs{
+
+    white-space:
+    pre-wrap;
+
+}
+
+.total-impressao{
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+</style>
+
+</head>
 
 
-// ==========================================
-// IMPRESSÃO
-// ==========================================
+<body>
 
-function imprimir(){
+
+<h1>HOTEL DO BAÚ</h1>
+
+<h2>COMANDA #${numeroFormatado}</h2>
+
+
+<div class="separador"></div>
+
+
+<p class="destaque">
+Quarto: ${pedido.quarto}
+</p>
+
+
+<p>
+${pedido.dataHora || ""}
+</p>
+
+
+<div class="separador"></div>
+
+
+${itensHTML}
+
+
+<div class="separador"></div>
+
+
+<strong>OBSERVAÇÕES:</strong>
+
+<p class="obs">
+${pedido.observacao || "Nenhuma"}
+</p>
+
+
+<div class="separador"></div>
+
+
+<div class="total-impressao">
+
+<span>TOTAL</span>
+
+<span>
+${dinheiro(pedido.total)}
+</span>
+
+</div>
+
+
+<div class="separador"></div>
+
+
+<p class="central">
+Obrigado!
+</p>
+
+
+<script>
+
+window.onload = function(){
 
     window.print();
 
+};
+
+<\/script>
+
+
+</body>
+
+</html>
+
+    `);
+
+
+    janela.document.close();
+
+
+    // Marca o pedido como impresso
+
+    pedidos =
+        pedidos.map(p => {
+
+            if(
+                Number(p.numero)
+                ===
+                Number(numero)
+            ){
+
+                return {
+                    ...p,
+                    status:"impresso"
+                };
+
+            }
+
+            return p;
+
+        });
+
+
+    localStorage.setItem(
+        "pedidosHotel",
+        JSON.stringify(pedidos)
+    );
+
+
+    setTimeout(
+        carregarPedidos,
+        500
+    );
+
 }
 
 
 
 // ==========================================
-// CARREGAR AO ABRIR
+// REMOVER PEDIDO
+// ==========================================
+
+function removerPedido(numero){
+
+
+    const confirmar =
+        confirm(
+            "Deseja remover esta comanda da lista?"
+        );
+
+
+    if(!confirmar){
+
+        return;
+
+    }
+
+
+    let pedidos =
+        JSON.parse(
+            localStorage.getItem("pedidosHotel")
+        ) || [];
+
+
+    pedidos =
+        pedidos.filter(
+            p =>
+            Number(p.numero)
+            !==
+            Number(numero)
+        );
+
+
+    localStorage.setItem(
+        "pedidosHotel",
+        JSON.stringify(pedidos)
+    );
+
+
+    carregarPedidos();
+
+}
+
+
+
+// ==========================================
+// ATUALIZAR AUTOMATICAMENTE
+// ==========================================
+
+setInterval(
+    carregarPedidos,
+    5000
+);
+
+
+
+// ==========================================
+// INICIAR
 // ==========================================
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
-    carregarComanda
-
+    carregarPedidos
 );
+
 
 </script>
 
