@@ -17,7 +17,7 @@ from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
 
-    apiKey: "SUA_API_KEY",
+    apiKey: "AIzaSyBFh1CIN7upch4eXlglUaC_F9rvhpD87gg",
 
     authDomain: "hotel-do-bau.firebaseapp.com",
 
@@ -27,7 +27,7 @@ const firebaseConfig = {
 
     messagingSenderId: "139452222353",
 
-    appId: "SEU_APP_ID"
+    appId: "1:139452222353:web:28c69b7a802ec4aa4c2830"
 
 };
 
@@ -39,8 +39,6 @@ const app =
 const db =
     getFirestore(app);
 
-
-// Disponibiliza para os outros scripts
 
 window.firebaseHotel = {
 
