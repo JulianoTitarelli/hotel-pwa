@@ -149,6 +149,11 @@ Total: R$ ${Number(total.innerHTML).toFixed(2)}`
 
 try {
 
+    alert(
+        "Firebase carregado: " +
+        (window.firebaseHotel ? "SIM" : "NÃO")
+    );
+
     if (!window.firebaseHotel) {
 
         alert(
@@ -206,7 +211,6 @@ try {
         "Erro ao salvar pedido:",
         erro
     );
-
 
     alert(
         "❌ Não foi possível enviar o pedido para a recepção.\n\nTente novamente."
