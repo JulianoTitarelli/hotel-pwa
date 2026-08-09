@@ -930,17 +930,29 @@ window.onafterprint = function(){
     // CONFIRMA SE IMPRIMIU
     // =====================================
 
-    setTimeout(
-        async function(){
+  const verificarJanela = setInterval(
+
+    async function(){
+
+        if(janela.closed){
+
+            clearInterval(verificarJanela);
 
 
-            const confirmar =
-    confirm(
-        "🖨️ IMPRESSÃO DA COMANDA\n\n" +
-        "Quarto: " + pedido.quarto +
-        "\n\nSe a comanda saiu corretamente na impressora, clique em OK." +
-        "\n\nSe não imprimiu ou você cancelou a impressão, clique em CANCELAR."
-    );
+            const confirmar = confirm(
+
+                "🖨️ IMPRESSÃO DA COMANDA\n\n" +
+
+                "Quarto: " + pedido.quarto +
+
+                "\n\nA comanda foi impressa corretamente?" +
+
+                "\n\nOK = Finalizar pedido" +
+
+                "\nCANCELAR = Manter na lista"
+
+            );
+
 
             if(confirmar){
 
@@ -951,17 +963,18 @@ window.onafterprint = function(){
             }else{
 
                 alert(
-                    "A comanda continuará na lista."
+                    "A comanda continuará na lista para uma nova tentativa."
                 );
 
             }
 
+        }
 
-        },
-        1500
-    );
+    },
 
-}
+    500
+
+);
 
 
 
