@@ -221,11 +221,8 @@ try {
     // ===========================
 
     let mensagem =
-`━━━━━━━━━━━━━━
-
+`
 📦 *NOVO PEDIDO*
-
-🏨 *Hotel do Baú*
 
 🧾 *Comanda:* #${String(numeroComanda).padStart(3, "0")}
 
