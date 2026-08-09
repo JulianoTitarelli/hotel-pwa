@@ -8,9 +8,21 @@ function enviarPedido(){
     }
 
 
-    const quarto = document.getElementById("quarto").value;
+    // ===========================
+    // QUARTO
+    // ===========================
 
-    const observacaoCampo = document.getElementById("observacao");
+    const quarto =
+        document.getElementById("quarto").value;
+
+
+    // ===========================
+    // OBSERVAÇÃO
+    // ===========================
+
+    const observacaoCampo =
+        document.getElementById("observacao");
+
 
     let observacao = "Nenhuma";
 
@@ -19,13 +31,17 @@ function enviarPedido(){
 
         if(observacaoCampo.value.trim() !== ""){
 
-            observacao = observacaoCampo.value.trim();
+            observacao =
+                observacaoCampo.value.trim();
 
         }
 
     }
 
 
+    // ===========================
+    // VERIFICA QUARTO
+    // ===========================
 
     if(quarto === ""){
 
@@ -35,13 +51,66 @@ function enviarPedido(){
     }
 
 
+    // ===========================
+    // MONTA COMANDA
+    // ===========================
 
-    let mensagem = 
+    let comanda = {
+
+        hotel: "Hotel do Baú",
+
+        quarto: quarto,
+
+        itens: [],
+
+        observacao: observacao,
+
+        total: Number(total.innerHTML)
+
+    };
+
+
+    // ===========================
+    // ADICIONA OS PRODUTOS
+    // ===========================
+
+    carrinho.forEach(item => {
+
+        comanda.itens.push({
+
+            nome: item.nome,
+
+            quantidade: item.quantidade,
+
+            preco: Number(item.preco),
+
+            subtotal:
+                Number(item.preco) *
+                Number(item.quantidade)
+
+        });
+
+    });
+
+
+    // ===========================
+    // GUARDA A COMANDA
+    // ===========================
+
+    localStorage.setItem(
+        "ultimaComanda",
+        JSON.stringify(comanda)
+    );
+
+
+    // ===========================
+    // MONTA WHATSAPP
+    // ===========================
+
+    let mensagem =
 `━━━━━━━━━━━━━━
 
-📦 *NOVO PEDIDO*
-
-🏨 *Hotel do Baú*
+🍽️ *Pedido Hotel do Baú*
 
 🚪 *Quarto:* ${quarto}
 
@@ -50,10 +119,9 @@ function enviarPedido(){
 `;
 
 
-
     carrinho.forEach(item => {
 
-        mensagem += 
+        mensagem +=
 `🍽️ ${item.nome}
 
 Quantidade: ${item.quantidade}
@@ -63,8 +131,7 @@ Quantidade: ${item.quantidade}
     });
 
 
-
-    mensagem += 
+    mensagem +=
 `━━━━━━━━━━━━━━
 
 📝 *Observações:*
@@ -73,15 +140,14 @@ ${observacao}
 
 ━━━━━━━━━━━━━━
 
-💰 *Total:* R$ ${total.innerHTML}
+💰 *Total:* R$ ${Number(total.innerHTML).toFixed(2)}
 
-🙏 Obrigado por escolher o Hotel do Baú!`;
-
-
-
-    const texto = encodeURIComponent(mensagem);
+🙏 Obrigado por escolher o Hotel do Baú! Assim que estiver pronto avisamos você`;
 
 
+    // ===========================
+    // CONFIRMAÇÃO
+    // ===========================
 
     const confirmar = confirm(
 `Confirmar pedido?
@@ -89,38 +155,66 @@ ${observacao}
 Quarto: ${quarto}
 
 Total:
-R$ ${total.innerHTML}`
+R$ ${Number(total.innerHTML).toFixed(2)}`
     );
 
 
+    if(!confirmar){
 
-    if(confirmar){
-
-        window.open(
-    "https://wa.me/5516991180878?text=" + texto,
-    "_blank"
-);
+        return;
 
     }
 
+
+    // ===========================
+    // ENVIA WHATSAPP
+    // ===========================
+
+    const texto =
+        encodeURIComponent(mensagem);
+
+
+    window.open(
+
+        "https://wa.me/5516991180878?text=" + texto,
+
+        "_blank"
+
+    );
+
 }
-// BOTÃO FIXO WHATSAPP DA RECEPÇÃO
+
+
+// ===========================
+// BOTÃO FIXO WHATSAPP
+// ===========================
 
 function criarWhatsappRecepcao(){
 
-    const botao = document.createElement("a");
+    const botao =
+        document.createElement("a");
 
-    botao.href = "https://wa.me/5516991180878?text=Olá,%20gostaria%20de%20falar%20com%20a%20recepção%20do%20Hotel%20do%20Baú";
+
+    botao.href =
+        "https://wa.me/5516991180878?text=Olá,%20gostaria%20de%20falar%20com%20a%20recepção%20do%20Hotel%20do%20Baú";
+
 
     botao.target = "_blank";
 
+
     botao.innerHTML = "💬";
 
-    botao.className = "whatsapp-fixo";
+
+    botao.className =
+        "whatsapp-fixo";
+
 
     document.body.appendChild(botao);
 
 }
 
 
-document.addEventListener("DOMContentLoaded", criarWhatsappRecepcao);
+document.addEventListener(
+    "DOMContentLoaded",
+    criarWhatsappRecepcao
+);
