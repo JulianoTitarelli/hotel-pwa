@@ -102,16 +102,19 @@ function dinheiro(valor){
 
 function carregarPedidos(){
 
-    const lista =
-        document.getElementById("lista-pedidos");
-
-    lista.innerHTML = "";
-
-
     const pedidos =
         JSON.parse(
             localStorage.getItem("pedidosHotel")
         ) || [];
+
+    alert(
+        "Pedidos encontrados: " + pedidos.length
+    );
+
+    const lista =
+        document.getElementById("lista-pedidos");
+
+    lista.innerHTML = "";
 
 
     document.getElementById("contador-pedidos")
