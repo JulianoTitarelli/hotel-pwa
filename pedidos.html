@@ -602,13 +602,9 @@ async function iniciarPedidos(){
 
 function imprimirPedido(pedido){
 
-
     if(!pedido){
 
-        alert(
-            "Pedido não encontrado."
-        );
-
+        alert("Pedido não encontrado.");
         return;
 
     }
@@ -617,8 +613,13 @@ function imprimirPedido(pedido){
     let itensHTML = "";
 
 
-    pedido.itens.forEach(item => {
+    const itens =
+        Array.isArray(pedido.itens)
+        ? pedido.itens
+        : [];
 
+
+    itens.forEach(item => {
 
         const subtotal =
             Number(item.subtotal) ||
@@ -633,17 +634,12 @@ function imprimirPedido(pedido){
             <div class="linha-item-impressao">
 
                 <span>
-
                     ${item.quantidade}x
                     ${escaparHTML(item.nome)}
-
                 </span>
 
-
                 <span>
-
                     ${dinheiro(subtotal)}
-
                 </span>
 
             </div>
@@ -651,7 +647,6 @@ function imprimirPedido(pedido){
         `;
 
     });
-
 
 
     const janela =
@@ -673,8 +668,7 @@ function imprimirPedido(pedido){
     }
 
 
-
-    janela.document.write(`
+    const htmlImpressao = `
 
 <!DOCTYPE html>
 
@@ -684,119 +678,100 @@ function imprimirPedido(pedido){
 
 <meta charset="UTF-8">
 
-<title>
-Comanda Hotel do Baú
-</title>
-
+<title>Comanda - Hotel do Baú</title>
 
 <style>
 
 @page {
 
-    size:80mm auto;
-
-    margin:3mm;
+    size: 80mm auto;
+    margin: 3mm;
 
 }
-
 
 body {
 
-    font-family:
-        Arial,
-        sans-serif;
+    font-family: Arial, sans-serif;
 
-    width:72mm;
+    width: 72mm;
 
-    margin:0 auto;
+    margin: 0 auto;
 
-    color:#000;
+    color: #000;
 
-    font-size:13px;
+    font-size: 13px;
 
 }
-
 
 h1 {
 
-    text-align:center;
+    text-align: center;
 
-    margin:0;
+    margin: 0;
 
-    font-size:20px;
+    font-size: 20px;
 
 }
-
 
 h2 {
 
-    text-align:center;
+    text-align: center;
 
-    margin:5px 0;
+    margin: 5px 0;
 
-    font-size:15px;
+    font-size: 15px;
 
 }
-
 
 .central {
 
-    text-align:center;
+    text-align: center;
 
 }
-
 
 .separador {
 
-    border-top:
-        1px dashed #000;
+    border-top: 1px dashed #000;
 
-    margin:10px 0;
+    margin: 10px 0;
 
 }
-
 
 .quarto {
 
-    font-size:20px;
+    font-size: 20px;
 
-    font-weight:bold;
+    font-weight: bold;
 
 }
-
 
 .linha-item-impressao {
 
-    display:flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    gap:10px;
+    gap: 10px;
 
-    margin:8px 0;
+    margin: 8px 0;
 
 }
-
 
 .obs {
 
-    white-space:
-        pre-wrap;
+    white-space: pre-wrap;
 
 }
 
-
 .total-impressao {
 
-    display:flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    font-size:18px;
+    font-size: 18px;
 
-    font-weight:bold;
+    font-weight: bold;
 
 }
 
@@ -822,19 +797,12 @@ NOVO PEDIDO
 
 
 <p class="quarto">
-
-QUARTO:
-${escaparHTML(pedido.quarto)}
-
+QUARTO: ${escaparHTML(pedido.quarto)}
 </p>
 
 
 <p>
-
-${escaparHTML(
-    pedido.dataHora || ""
-)}
-
+${escaparHTML(pedido.dataHora || "")}
 </p>
 
 
@@ -848,19 +816,15 @@ ${itensHTML}
 
 
 <strong>
-
 OBSERVAÇÕES:
-
 </strong>
 
 
 <p class="obs">
-
 ${escaparHTML(
     pedido.observacao ||
     "Nenhuma"
 )}
-
 </p>
 
 
@@ -874,11 +838,7 @@ ${escaparHTML(
     </span>
 
     <span>
-
-        ${dinheiro(
-            pedido.total
-        )}
-
+        ${dinheiro(pedido.total)}
     </span>
 
 </div>
@@ -898,83 +858,91 @@ Obrigado!
 </p>
 
 
-<script>
-
-window.onload = function(){
-
-    window.print();
-
-};
-
-
-window.onafterprint = function(){
-
-    window.close();
-
-};
-<\/script>
-
-
 </body>
 
 </html>
 
-    `);
+`;
 
+
+    janela.document.open();
+
+    janela.document.write(
+        htmlImpressao
+    );
 
     janela.document.close();
 
 
+    // Aguarda a comanda carregar
+    // e abre a impressão
+
+    setTimeout(function(){
+
+        janela.focus();
+
+        janela.print();
+
+    }, 500);
+
+
 
     // =====================================
-    // CONFIRMA SE IMPRIMIU
+    // ESPERA A JANELA DE IMPRESSÃO FECHAR
     // =====================================
 
-  const verificarJanela = setInterval(
+    const verificarJanela =
+        setInterval(
 
-    async function(){
+            async function(){
 
-        if(janela.closed){
+                if(janela.closed){
 
-            clearInterval(verificarJanela);
-
-
-            const confirmar = confirm(
-
-                "🖨️ IMPRESSÃO DA COMANDA\n\n" +
-
-                "Quarto: " + pedido.quarto +
-
-                "\n\nA comanda foi impressa corretamente?" +
-
-                "\n\nOK = Finalizar pedido" +
-
-                "\nCANCELAR = Manter na lista"
-
-            );
+                    clearInterval(
+                        verificarJanela
+                    );
 
 
-            if(confirmar){
+                    const confirmar =
+                        confirm(
 
-                await finalizarPedido(
-                    pedido.id
-                );
+                            "🖨️ IMPRESSÃO DA COMANDA\n\n" +
 
-            }else{
+                            "Quarto: " +
+                            pedido.quarto +
 
-                alert(
-                    "A comanda continuará na lista para uma nova tentativa."
-                );
+                            "\n\nA comanda foi impressa corretamente?" +
 
-            }
+                            "\n\nOK = Finalizar pedido" +
 
-        }
+                            "\nCANCELAR = Manter na lista"
 
-    },
+                        );
 
-    500
 
-);
+                    if(confirmar){
+
+                        await finalizarPedido(
+                            pedido.id
+                        );
+
+                    }else{
+
+                        alert(
+                            "A comanda continuará na lista para uma nova tentativa."
+                        );
+
+                    }
+
+                }
+
+            },
+
+            500
+
+        );
+
+}
 
 
 
