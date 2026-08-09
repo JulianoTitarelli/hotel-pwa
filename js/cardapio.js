@@ -371,58 +371,6 @@ function atualizarCarrinho(){
 
 
 // ===========================
-// ENVIAR PEDIDO WHATSAPP
-// ===========================
-
-function enviarPedido(){
-
-
-    if(carrinho.length === 0){
-
-        alert("Selecione algum produto antes de enviar.");
-
-        return;
-
-    }
-
-
-
-    let mensagem =
-    "🍽️ *Pedido Hotel do Baú*%0A%0A";
-
-
-
-    carrinho.forEach(item=>{
-
-
-        mensagem +=
-        `${item.quantidade}x ${item.nome} - R$ ${(item.preco * item.quantidade).toFixed(2)}%0A`;
-
-
-    });
-
-
-
-    mensagem +=
-    `%0A💰 Total: R$ ${total.innerHTML}`;
-
-
-
-    const numero =
-    "5516991180878";
-
-
-
-    window.open(
-        `https://wa.me/${numero}?text=${mensagem}`,
-        "_blank"
-    );
-
-
-}
-
-
-// ===========================
 // BUSCA
 // ===========================
 
