@@ -3,13 +3,13 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Recepção - Hotel do Baú</title>
+<title>Recepção - Hotel do Baú</title>
 
-    <link rel="stylesheet" href="css/beneficios.css">
-    <link rel="stylesheet" href="css/responsivo.css">
+<link rel="stylesheet" href="css/beneficios.css">
+<link rel="stylesheet" href="css/responsivo.css">
 
 </head>
 
@@ -17,17 +17,21 @@
 <body>
 
 
-<header>
+<header class="topo">
 
-    <img src="img/logo.jpg" alt="Logo Hotel do Baú">
+    <button onclick="history.back()" class="voltar">
+        ← Voltar
+    </button>
 
-    <h1>
-        Recepção
-    </h1>
+    <div class="titulo-topo">
 
-    <p>
-        Estamos à disposição para ajudar você
-    </p>
+        <h1>🛎️ Recepção</h1>
+
+        <p>
+            Estamos à disposição para ajudar você
+        </p>
+
+    </div>
 
 </header>
 
@@ -36,46 +40,54 @@
 <main class="cardapio-container">
 
 
-    <div class="card">
+<!-- ATENDIMENTO -->
 
-        <h2>🛎️ Atendimento</h2>
+<div class="card">
 
-        <p>
-            Nossa equipe está pronta para atender
-            suas solicitações durante sua hospedagem.
-        </p>
+    <h2>🛎️ Atendimento</h2>
 
-    </div>
+    <p>
+        Nossa equipe está pronta para atender
+        suas solicitações durante sua hospedagem.
+    </p>
 
-
-
-    <div class="card">
-
-        <h2>📞 Contato</h2>
-
-        <p>
-            Entre em contato com a recepção para
-            dúvidas, informações ou pedidos.
-        </p>
-
-    </div>
+</div>
 
 
 
-    <div class="card">
+<!-- CONTATO -->
 
-        <h2>🕒 Horário de atendimento</h2>
+<div class="card">
 
-        <p>
-            Atendimento disponível para proporcionar
-            uma melhor experiência aos hóspedes.
-        </p>
+    <h2>📞 Contato</h2>
 
-    </div>
+    <p>
+        Entre em contato com a recepção para
+        dúvidas, informações ou pedidos.
+    </p>
+
+</div>
 
 
 
-    <div class="card">
+<!-- HORÁRIO -->
+
+<div class="card">
+
+    <h2>🕒 Horário de atendimento</h2>
+
+    <p>
+        Atendimento disponível para proporcionar
+        uma melhor experiência aos hóspedes.
+    </p>
+
+</div>
+
+
+
+<!-- WHATSAPP -->
+
+<div class="card">
 
     <h2>💬 WhatsApp</h2>
 
@@ -97,6 +109,27 @@
 
 
 
+<!-- ÁREA RESTRITA -->
+
+<div class="card">
+
+    <h2>🔐 Área da Recepção</h2>
+
+    <p>
+        Acesso exclusivo para visualizar e imprimir comandas.
+    </p>
+
+    <br>
+
+    <button onclick="acessarPedidos()">
+
+        🖨️ Acessar Pedidos
+
+    </button>
+
+</div>
+
+
 </main>
 
 
@@ -109,6 +142,27 @@
 
 </footer>
 
+
+
+<script>
+
+function acessarPedidos() {
+
+    const senha = prompt("🔐 Digite a senha da recepção:");
+
+    if (senha === "hotel2026") {
+
+        window.location.href = "pedidos.html";
+
+    } else if (senha !== null) {
+
+        alert("❌ Senha incorreta.");
+
+    }
+
+}
+
+</script>
 
 
 </body>
