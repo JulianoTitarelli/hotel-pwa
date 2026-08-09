@@ -53,20 +53,24 @@
             0 pedidos
         </span>
 
-        <button
-            onclick="carregarPedidos()"
-            class="botao atualizar">
-
-            🔄 Atualizar
-
-        </button>
+        <span id="status-conexao">
+            🟡 Conectando...
+        </span>
 
     </div>
 
 
     <section id="lista-pedidos">
 
-        <!-- Pedidos serão carregados aqui -->
+        <div class="sem-pedido">
+
+            <h2>⏳ Carregando...</h2>
+
+            <p>
+                Buscando pedidos recebidos.
+            </p>
+
+        </div>
 
     </section>
 
@@ -75,7 +79,74 @@
 
 
 
-<script>
+<!-- FIREBASE -->
+<script
+    type="module"
+    src="js/firebase.js?v=5">
+</script>
+
+
+
+<script type="module">
+
+
+// ==========================================
+// AGUARDA FIREBASE CARREGAR
+// ==========================================
+
+async function aguardarFirebase(){
+
+    let tentativas = 0;
+
+    while(
+        !window.firebaseHotel &&
+        tentativas < 50
+    ){
+
+        await new Promise(
+            resolve =>
+            setTimeout(resolve, 100)
+        );
+
+        tentativas++;
+
+    }
+
+
+    if(!window.firebaseHotel){
+
+        document.getElementById(
+            "status-conexao"
+        ).textContent =
+            "🔴 Firebase desconectado";
+
+
+        document.getElementById(
+            "lista-pedidos"
+        ).innerHTML = `
+
+            <div class="sem-pedido">
+
+                <h2>⚠️ Erro de conexão</h2>
+
+                <p>
+                    Não foi possível conectar
+                    ao sistema de pedidos.
+                </p>
+
+            </div>
+
+        `;
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
 
 
 // ==========================================
@@ -84,45 +155,63 @@
 
 function dinheiro(valor){
 
-    return Number(valor).toLocaleString(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
-        }
-    );
+    return Number(valor || 0)
+        .toLocaleString(
+            "pt-BR",
+            {
+                style:"currency",
+                currency:"BRL"
+            }
+        );
 
 }
 
 
 
 // ==========================================
-// CARREGAR PEDIDOS
+// ESCAPAR TEXTO
 // ==========================================
 
-function carregarPedidos(){
+function escaparHTML(texto){
 
-    const pedidos =
-        JSON.parse(
-            localStorage.getItem("pedidosHotel")
-        ) || [];
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        texto ?? "";
+
+    return div.innerHTML;
+
+}
+
+
+
+// ==========================================
+// MOSTRAR PEDIDOS
+// ==========================================
+
+function mostrarPedidos(pedidos){
 
 
     const lista =
-        document.getElementById("lista-pedidos");
+        document.getElementById(
+            "lista-pedidos"
+        );
 
 
     const contador =
-        document.getElementById("contador-pedidos");
-
-
-    lista.innerHTML = "";
+        document.getElementById(
+            "contador-pedidos"
+        );
 
 
     contador.textContent =
         pedidos.length === 1
-        ? "1 pedido"
-        : `${pedidos.length} pedidos`;
+        ? "1 pedido pendente"
+        : `${pedidos.length} pedidos pendentes`;
+
+
+    lista.innerHTML = "";
 
 
     if(pedidos.length === 0){
@@ -134,7 +223,8 @@ function carregarPedidos(){
                 <h2>📭 Nenhum pedido</h2>
 
                 <p>
-                    Nenhuma comanda pendente no momento.
+                    Nenhuma comanda
+                    pendente no momento.
                 </p>
 
             </div>
@@ -146,32 +236,44 @@ function carregarPedidos(){
     }
 
 
-    // Mais recente primeiro
+    // MAIS NOVO PRIMEIRO
+    pedidos.sort((a,b) => {
 
-    const pedidosOrdenados =
-        [...pedidos].reverse();
+        const tempoA =
+            a.criadoEm?.seconds || 0;
+
+        const tempoB =
+            b.criadoEm?.seconds || 0;
+
+        return tempoB - tempoA;
+
+    });
 
 
-    pedidosOrdenados.forEach(pedido => {
+
+    pedidos.forEach(pedido => {
 
 
         const card =
-            document.createElement("article");
+            document.createElement(
+                "article"
+            );
 
 
         card.className =
             "pedido-card";
 
 
-        const numero =
-            String(pedido.numero || 0)
-            .padStart(3, "0");
-
-
         let itensHTML = "";
 
 
-        pedido.itens.forEach(item => {
+        const itens =
+            Array.isArray(pedido.itens)
+            ? pedido.itens
+            : [];
+
+
+        itens.forEach(item => {
 
 
             const subtotal =
@@ -189,20 +291,28 @@ function carregarPedidos(){
                     <div class="item-esquerda">
 
                         <strong>
-                            ${item.quantidade}x
-                            ${item.nome}
+
+                            ${Number(item.quantidade)}x
+
+                            ${escaparHTML(item.nome)}
+
                         </strong>
 
+
                         <small>
+
                             ${dinheiro(item.preco)}
                             cada
+
                         </small>
 
                     </div>
 
 
                     <strong class="subtotal">
+
                         ${dinheiro(subtotal)}
+
                     </strong>
 
                 </div>
@@ -219,36 +329,52 @@ function carregarPedidos(){
                 <div>
 
                     <h2>
-                        🧾 Comanda #${numero}
+                        🧾 Novo Pedido
                     </h2>
 
                     <p>
+
                         🚪 Quarto:
-                        <strong>${pedido.quarto}</strong>
+
+                        <strong>
+                            ${escaparHTML(pedido.quarto)}
+                        </strong>
+
                     </p>
 
                 </div>
 
+
                 <span class="status novo">
+
                     🟢 Novo
+
                 </span>
 
             </div>
 
 
             <p class="data-hora">
-                🕒 ${pedido.dataHora || ""}
+
+                🕒 ${escaparHTML(
+                    pedido.dataHora || ""
+                )}
+
             </p>
 
 
             <div class="linha"></div>
 
 
-            <h3>🍽️ Itens</h3>
+            <h3>
+                🍽️ Itens
+            </h3>
 
 
             <div class="itens">
+
                 ${itensHTML}
+
             </div>
 
 
@@ -261,8 +387,14 @@ function carregarPedidos(){
                     📝 Observações
                 </strong>
 
+
                 <p>
-                    ${pedido.observacao || "Nenhuma"}
+
+                    ${escaparHTML(
+                        pedido.observacao ||
+                        "Nenhuma"
+                    )}
+
                 </p>
 
             </div>
@@ -278,7 +410,11 @@ function carregarPedidos(){
                 </span>
 
                 <strong>
-                    ${dinheiro(pedido.total)}
+
+                    ${dinheiro(
+                        pedido.total
+                    )}
+
                 </strong>
 
             </div>
@@ -287,8 +423,8 @@ function carregarPedidos(){
             <div class="acoes-pedido">
 
                 <button
-                    onclick="imprimirPedido(${pedido.numero})"
-                    class="botao imprimir">
+                    class="botao imprimir"
+                    data-imprimir="${pedido.id}">
 
                     🖨️ Imprimir
 
@@ -296,8 +432,8 @@ function carregarPedidos(){
 
 
                 <button
-                    onclick="removerPedido(${pedido.numero})"
-                    class="botao remover">
+                    class="botao remover"
+                    data-cancelar="${pedido.id}">
 
                     🗑️ Cancelar
 
@@ -312,42 +448,170 @@ function carregarPedidos(){
 
     });
 
+
+    // BOTÕES IMPRIMIR
+
+    document
+        .querySelectorAll(
+            "[data-imprimir]"
+        )
+        .forEach(botao => {
+
+            botao.onclick = () => {
+
+                const id =
+                    botao.getAttribute(
+                        "data-imprimir"
+                    );
+
+                const pedido =
+                    pedidos.find(
+                        p => p.id === id
+                    );
+
+                imprimirPedido(pedido);
+
+            };
+
+        });
+
+
+    // BOTÕES CANCELAR
+
+    document
+        .querySelectorAll(
+            "[data-cancelar]"
+        )
+        .forEach(botao => {
+
+            botao.onclick = () => {
+
+                const id =
+                    botao.getAttribute(
+                        "data-cancelar"
+                    );
+
+                cancelarPedido(id);
+
+            };
+
+        });
+
 }
 
 
 
 // ==========================================
-// IMPRIMIR PEDIDO
+// ESCUTAR FIREBASE EM TEMPO REAL
 // ==========================================
 
-function imprimirPedido(numero){
-
-    let pedidos =
-        JSON.parse(
-            localStorage.getItem("pedidosHotel")
-        ) || [];
+async function iniciarPedidos(){
 
 
-    const pedido =
-        pedidos.find(
-            p =>
-            Number(p.numero) ===
-            Number(numero)
+    const carregou =
+        await aguardarFirebase();
+
+
+    if(!carregou){
+        return;
+    }
+
+
+    const {
+
+        db,
+        collection,
+        onSnapshot
+
+    } = window.firebaseHotel;
+
+
+    const referencia =
+        collection(
+            db,
+            "pedidos"
         );
+
+
+    onSnapshot(
+
+        referencia,
+
+        snapshot => {
+
+
+            const pedidos = [];
+
+
+            snapshot.forEach(
+                documento => {
+
+
+                    pedidos.push({
+
+                        id:
+                            documento.id,
+
+                        ...documento.data()
+
+                    });
+
+
+                }
+            );
+
+
+            document.getElementById(
+                "status-conexao"
+            ).textContent =
+                "🟢 Online";
+
+
+            mostrarPedidos(
+                pedidos
+            );
+
+        },
+
+
+        erro => {
+
+
+            console.error(
+                "Erro ao receber pedidos:",
+                erro
+            );
+
+
+            document.getElementById(
+                "status-conexao"
+            ).textContent =
+                "🔴 Erro de conexão";
+
+        }
+
+    );
+
+}
+
+
+
+// ==========================================
+// IMPRESSÃO
+// ==========================================
+
+function imprimirPedido(pedido){
 
 
     if(!pedido){
 
-        alert("Pedido não encontrado.");
+        alert(
+            "Pedido não encontrado."
+        );
 
         return;
 
     }
-
-
-    const numeroFormatado =
-        String(pedido.numero)
-        .padStart(3, "0");
 
 
     let itensHTML = "";
@@ -369,11 +633,17 @@ function imprimirPedido(numero){
             <div class="linha-item-impressao">
 
                 <span>
-                    ${item.quantidade}x ${item.nome}
+
+                    ${item.quantidade}x
+                    ${escaparHTML(item.nome)}
+
                 </span>
 
+
                 <span>
+
                     ${dinheiro(subtotal)}
+
                 </span>
 
             </div>
@@ -381,6 +651,7 @@ function imprimirPedido(numero){
         `;
 
     });
+
 
 
     const janela =
@@ -402,6 +673,7 @@ function imprimirPedido(numero){
     }
 
 
+
     janela.document.write(`
 
 <!DOCTYPE html>
@@ -413,7 +685,7 @@ function imprimirPedido(numero){
 <meta charset="UTF-8">
 
 <title>
-Comanda #${numeroFormatado}
+Comanda Hotel do Baú
 </title>
 
 
@@ -421,94 +693,110 @@ Comanda #${numeroFormatado}
 
 @page {
 
-    size: 80mm auto;
-    margin: 3mm;
+    size:80mm auto;
+
+    margin:3mm;
 
 }
+
 
 body {
 
-    font-family: Arial, sans-serif;
+    font-family:
+        Arial,
+        sans-serif;
 
-    width: 72mm;
+    width:72mm;
 
-    margin: 0 auto;
+    margin:0 auto;
 
-    color: #000;
+    color:#000;
 
-    font-size: 13px;
+    font-size:13px;
 
 }
+
 
 h1 {
 
-    text-align: center;
+    text-align:center;
 
-    margin: 0;
+    margin:0;
 
-    font-size: 19px;
+    font-size:20px;
 
 }
+
 
 h2 {
 
-    text-align: center;
+    text-align:center;
 
-    margin: 5px 0;
+    margin:5px 0;
 
-    font-size: 16px;
+    font-size:15px;
 
 }
+
 
 .central {
 
-    text-align: center;
+    text-align:center;
 
 }
+
 
 .separador {
 
-    border-top: 1px dashed #000;
+    border-top:
+        1px dashed #000;
 
-    margin: 10px 0;
+    margin:10px 0;
+
+}
+
+
+.quarto {
+
+    font-size:20px;
+
+    font-weight:bold;
 
 }
 
-.destaque {
-
-    font-size: 17px;
-
-    font-weight: bold;
-
-}
 
 .linha-item-impressao {
 
-    display: flex;
+    display:flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    gap: 10px;
+    gap:10px;
 
-    margin: 7px 0;
+    margin:8px 0;
 
 }
+
 
 .obs {
 
-    white-space: pre-wrap;
+    white-space:
+        pre-wrap;
 
 }
 
+
 .total-impressao {
 
-    display: flex;
+    display:flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    font-size: 17px;
+    font-size:18px;
 
-    font-weight: bold;
+    font-weight:bold;
 
 }
 
@@ -526,20 +814,27 @@ HOTEL DO BAÚ
 
 
 <h2>
-COMANDA #${numeroFormatado}
+NOVO PEDIDO
 </h2>
 
 
 <div class="separador"></div>
 
 
-<p class="destaque">
-QUARTO: ${pedido.quarto}
+<p class="quarto">
+
+QUARTO:
+${escaparHTML(pedido.quarto)}
+
 </p>
 
 
 <p>
-${pedido.dataHora || ""}
+
+${escaparHTML(
+    pedido.dataHora || ""
+)}
+
 </p>
 
 
@@ -553,12 +848,19 @@ ${itensHTML}
 
 
 <strong>
+
 OBSERVAÇÕES:
+
 </strong>
 
 
 <p class="obs">
-${pedido.observacao || "Nenhuma"}
+
+${escaparHTML(
+    pedido.observacao ||
+    "Nenhuma"
+)}
+
 </p>
 
 
@@ -572,7 +874,11 @@ ${pedido.observacao || "Nenhuma"}
     </span>
 
     <span>
-        ${dinheiro(pedido.total)}
+
+        ${dinheiro(
+            pedido.total
+        )}
+
     </span>
 
 </div>
@@ -613,70 +919,114 @@ window.onload = function(){
     janela.document.close();
 
 
-    // ======================================
-    // CONFIRMA IMPRESSÃO
-    // ======================================
 
-    setTimeout(function(){
+    // =====================================
+    // CONFIRMA SE IMPRIMIU
+    // =====================================
 
-        const impresso =
-            confirm(
-                "🖨️ A comanda #" +
-                numeroFormatado +
-                " foi impressa corretamente?"
-            );
+    setTimeout(
+        async function(){
 
 
-        if(impresso){
+            const confirmar =
+                confirm(
 
+                    "🖨️ A comanda do quarto " +
 
-            pedidos =
-                pedidos.filter(
-                    p =>
-                    Number(p.numero)
-                    !==
-                    Number(numero)
+                    pedido.quarto +
+
+                    " foi impressa corretamente?"
+
                 );
 
 
-            localStorage.setItem(
-                "pedidosHotel",
-                JSON.stringify(pedidos)
-            );
+            if(confirmar){
+
+                await finalizarPedido(
+                    pedido.id
+                );
+
+            }else{
+
+                alert(
+                    "A comanda continuará na lista."
+                );
+
+            }
 
 
-            carregarPedidos();
-
-
-            alert(
-                "✅ Comanda #" +
-                numeroFormatado +
-                " finalizada."
-            );
-
-        }else{
-
-            alert(
-                "A comanda continuará na lista."
-            );
-
-        }
-
-    }, 1500);
+        },
+        1500
+    );
 
 }
 
 
 
 // ==========================================
-// CANCELAR / REMOVER PEDIDO
+// FINALIZAR / APAGAR DO FIREBASE
 // ==========================================
 
-function removerPedido(numero){
+async function finalizarPedido(id){
+
+
+    try {
+
+
+        const {
+
+            db,
+            deleteDoc,
+            doc
+
+        } = window.firebaseHotel;
+
+
+        await deleteDoc(
+
+            doc(
+                db,
+                "pedidos",
+                id
+            )
+
+        );
+
+
+        alert(
+            "✅ Comanda finalizada."
+        );
+
+
+    } catch(erro){
+
+
+        console.error(
+            "Erro ao finalizar:",
+            erro
+        );
+
+
+        alert(
+            "❌ Não foi possível remover a comanda."
+        );
+
+    }
+
+}
+
+
+
+// ==========================================
+// CANCELAR PEDIDO
+// ==========================================
+
+async function cancelarPedido(id){
+
 
     const confirmar =
         confirm(
-            "Deseja cancelar e remover esta comanda?"
+            "Deseja cancelar e remover este pedido?"
         );
 
 
@@ -687,41 +1037,45 @@ function removerPedido(numero){
     }
 
 
-    let pedidos =
-        JSON.parse(
-            localStorage.getItem("pedidosHotel")
-        ) || [];
+    try {
 
 
-    pedidos =
-        pedidos.filter(
-            p =>
-            Number(p.numero)
-            !==
-            Number(numero)
+        const {
+
+            db,
+            deleteDoc,
+            doc
+
+        } = window.firebaseHotel;
+
+
+        await deleteDoc(
+
+            doc(
+                db,
+                "pedidos",
+                id
+            )
+
         );
 
 
-    localStorage.setItem(
-        "pedidosHotel",
-        JSON.stringify(pedidos)
-    );
+    } catch(erro){
 
 
-    carregarPedidos();
+        console.error(
+            "Erro ao cancelar:",
+            erro
+        );
+
+
+        alert(
+            "❌ Não foi possível cancelar o pedido."
+        );
+
+    }
 
 }
-
-
-
-// ==========================================
-// ATUALIZAÇÃO AUTOMÁTICA
-// ==========================================
-
-setInterval(
-    carregarPedidos,
-    5000
-);
 
 
 
@@ -729,10 +1083,7 @@ setInterval(
 // INICIAR
 // ==========================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    carregarPedidos
-);
+iniciarPedidos();
 
 
 </script>
