@@ -155,10 +155,9 @@ Total: R$ ${Number(total.innerHTML).toFixed(2)}`
         JSON.stringify(pedidosSalvos)
     );
 alert(
-    "✅ PEDIDO SALVO PARA IMPRESSÃO\n\n" +
-    "Comanda: #" + numeroComanda +
-    "\nQuarto: " + quarto +
-    "\nPedidos salvos: " + pedidosSalvos.length
+    "✅ PEDIDO SALVO\n\n" +
+    "Site: " + window.location.origin +
+    "\nPedidos: " + pedidosSalvos.length
 );
 
     // Mantém também a última comanda
