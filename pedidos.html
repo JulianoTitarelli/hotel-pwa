@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pedidos - Hotel do Baú</title>
+
+    <link rel="stylesheet"
+          href="css/pedidos.css">
+
+</head>
+
+
+<body>
+
+
+<header class="topo">
+
+    <button
+        onclick="history.back()"
+        class="voltar">
+
+        ← Voltar
+
+    </button>
+
+
+    <div class="titulo">
+
+        <h1>🍽️ Pedidos</h1>
+
+        <p>
+            Comanda do Hotel do Baú
+        </p>
+
+    </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+    <!-- COMANDA -->
+
+    <section
+        id="comanda"
+        class="comanda">
+
+
+        <div class="cabecalho-comanda">
+
+            <h2>HOTEL DO BAÚ</h2>
+
+            <p>NOVO PEDIDO</p>
+
+        </div>
+
+
+        <div class="linha"></div>
+
+
+        <!-- QUARTO -->
+
+        <div class="informacao">
+
+            <strong>🚪 Quarto:</strong>
+
+            <span id="quarto">
+                -
+            </span>
+
+        </div>
+
+
+        <div class="linha"></div>
+
+
+        <!-- PRODUTOS -->
+
+        <h3>🛒 Itens do pedido</h3>
+
+
+        <div id="itens">
+
+            <!-- Produtos aparecem aqui -->
+
+        </div>
+
+
+        <div class="linha"></div>
+
+
+        <!-- OBSERVAÇÃO -->
+
+        <div class="observacao">
+
+            <strong>📝 Observações:</strong>
+
+            <p id="observacao">
+                Nenhuma
+            </p>
+
+        </div>
+
+
+        <div class="linha"></div>
+
+
+        <!-- TOTAL -->
+
+        <div class="total">
+
+            <span>TOTAL</span>
+
+            <strong id="total">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="linha"></div>
+
+
+        <div class="rodape-comanda">
+
+            <p>
+                Hotel do Baú
+            </p>
+
+            <p>
+                Obrigado!
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- BOTÕES -->
+
+    <section class="acoes">
+
+
+        <button
+            onclick="imprimir()"
+            class="botao imprimir">
+
+            🖨️ Imprimir
+
+        </button>
+
+
+        <button
+            onclick="carregarComanda()"
+            class="botao atualizar">
+
+            🔄 Atualizar pedido
+
+        </button>
+
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+// ==========================================
+// CARREGAR ÚLTIMA COMANDA
+// ==========================================
+
+function carregarComanda(){
+
+
+    const dados =
+        localStorage.getItem("ultimaComanda");
+
+
+    if(!dados){
+
+        document.getElementById("itens").innerHTML =
+
+            `<p class="sem-pedido">
+                Nenhum pedido encontrado.
+            </p>`;
+
+        return;
+
+    }
+
+
+    const comanda =
+        JSON.parse(dados);
+
+
+    // ============================
+    // QUARTO
+    // ============================
+
+    document.getElementById("quarto")
+        .textContent =
+        comanda.quarto;
+
+
+    // ============================
+    // OBSERVAÇÃO
+    // ============================
+
+    document.getElementById("observacao")
+        .textContent =
+        comanda.observacao || "Nenhuma";
+
+
+    // ============================
+    // PRODUTOS
+    // ============================
+
+    const lista =
+        document.getElementById("itens");
+
+
+    lista.innerHTML = "";
+
+
+    comanda.itens.forEach(item => {
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "item";
+
+
+        const subtotal =
+            Number(item.preco) *
+            Number(item.quantidade);
+
+
+        div.innerHTML = `
+
+            <div class="item-esquerda">
+
+                <strong>
+                    ${item.quantidade}x
+                    ${item.nome}
+                </strong>
+
+                <small>
+                    R$ ${Number(item.preco).toFixed(2)}
+                    cada
+                </small>
+
+            </div>
+
+
+            <strong class="subtotal">
+
+                R$ ${subtotal.toFixed(2)}
+
+            </strong>
+
+        `;
+
+
+        lista.appendChild(div);
+
+    });
+
+
+    // ============================
+    // TOTAL
+    // ============================
+
+    document.getElementById("total")
+        .textContent =
+        "R$ " +
+        Number(comanda.total).toFixed(2);
+
+}
+
+
+
+// ==========================================
+// IMPRESSÃO
+// ==========================================
+
+function imprimir(){
+
+    window.print();
+
+}
+
+
+
+// ==========================================
+// CARREGAR AO ABRIR
+// ==========================================
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    carregarComanda
+
+);
+
+</script>
+
+
+</body>
+
+</html>
