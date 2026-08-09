@@ -53,3 +53,6 @@ window.firebaseHotel = {
     serverTimestamp
 
 };
+console.log("✅ Firebase Hotel carregado com sucesso");
+
+window.firebasePronto = true;
