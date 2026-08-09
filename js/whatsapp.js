@@ -1,5 +1,4 @@
-function enviarPedido(){
-
+async function enviarPedido(){
     if(carrinho.length === 0){
         alert("Adicione algum produto ao pedido.");
         return;
@@ -145,29 +144,77 @@ Total: R$ ${Number(total.innerHTML).toFixed(2)}`
 
 
     // ===========================
-    // SALVA NA LISTA DE PEDIDOS
-    // ===========================
+// SALVA PEDIDO NO FIREBASE
+// ===========================
 
-    pedidosSalvos.push(comanda);
+try {
 
-    localStorage.setItem(
-        "pedidosHotel",
-        JSON.stringify(pedidosSalvos)
+    if (!window.firebaseHotel) {
+
+        alert(
+            "Não foi possível conectar ao sistema de pedidos. Atualize a página e tente novamente."
+        );
+
+        return;
+    }
+
+
+    const {
+        db,
+        collection,
+        addDoc,
+        serverTimestamp
+    } = window.firebaseHotel;
+
+
+    const pedidoFirebase = {
+
+        hotel: "Hotel do Baú",
+
+        quarto: quarto,
+
+        itens: comanda.itens,
+
+        observacao: observacao,
+
+        total: Number(total.innerHTML),
+
+        status: "novo",
+
+        criadoEm: serverTimestamp(),
+
+        dataHora: dataHora
+
+    };
+
+
+    const documento = await addDoc(
+        collection(db, "pedidos"),
+        pedidoFirebase
     );
-alert(
-    "✅ PEDIDO SALVO\n\n" +
-    "Site: " + window.location.origin +
-    "\nPedidos: " + pedidosSalvos.length
-);
 
-    // Mantém também a última comanda
-    // para compatibilidade com a página antiga
 
-    localStorage.setItem(
-        "ultimaComanda",
-        JSON.stringify(comanda)
+    console.log(
+        "Pedido salvo no Firebase:",
+        documento.id
     );
 
+
+} catch (erro) {
+
+    console.error(
+        "Erro ao salvar pedido:",
+        erro
+    );
+
+
+    alert(
+        "❌ Não foi possível enviar o pedido para a recepção.\n\nTente novamente."
+    );
+
+    return;
+
+}
 
     // ===========================
     // MONTA WHATSAPP
