@@ -154,7 +154,12 @@ Total: R$ ${Number(total.innerHTML).toFixed(2)}`
         "pedidosHotel",
         JSON.stringify(pedidosSalvos)
     );
-
+alert(
+    "✅ PEDIDO SALVO PARA IMPRESSÃO\n\n" +
+    "Comanda: #" + numeroComanda +
+    "\nQuarto: " + quarto +
+    "\nPedidos salvos: " + pedidosSalvos.length
+);
 
     // Mantém também a última comanda
     // para compatibilidade com a página antiga
