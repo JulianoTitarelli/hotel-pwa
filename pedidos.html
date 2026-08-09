@@ -87,8 +87,8 @@ function dinheiro(valor){
     return Number(valor).toLocaleString(
         "pt-BR",
         {
-            style:"currency",
-            currency:"BRL"
+            style: "currency",
+            currency: "BRL"
         }
     );
 
@@ -107,18 +107,19 @@ function carregarPedidos(){
             localStorage.getItem("pedidosHotel")
         ) || [];
 
-    alert(
-        "Pedidos encontrados: " + pedidos.length
-    );
 
     const lista =
         document.getElementById("lista-pedidos");
 
+
+    const contador =
+        document.getElementById("contador-pedidos");
+
+
     lista.innerHTML = "";
 
 
-    document.getElementById("contador-pedidos")
-        .textContent =
+    contador.textContent =
         pedidos.length === 1
         ? "1 pedido"
         : `${pedidos.length} pedidos`;
@@ -133,7 +134,7 @@ function carregarPedidos(){
                 <h2>📭 Nenhum pedido</h2>
 
                 <p>
-                    Nenhuma comanda foi recebida ainda.
+                    Nenhuma comanda pendente no momento.
                 </p>
 
             </div>
@@ -145,7 +146,7 @@ function carregarPedidos(){
     }
 
 
-    // Mostra o mais recente primeiro
+    // Mais recente primeiro
 
     const pedidosOrdenados =
         [...pedidos].reverse();
@@ -158,18 +159,28 @@ function carregarPedidos(){
             document.createElement("article");
 
 
-        card.className = "pedido-card";
+        card.className =
+            "pedido-card";
 
 
         const numero =
-            String(pedido.numero)
-            .padStart(3,"0");
+            String(pedido.numero || 0)
+            .padStart(3, "0");
 
 
         let itensHTML = "";
 
 
         pedido.itens.forEach(item => {
+
+
+            const subtotal =
+                Number(item.subtotal) ||
+                (
+                    Number(item.preco) *
+                    Number(item.quantidade)
+                );
+
 
             itensHTML += `
 
@@ -191,9 +202,7 @@ function carregarPedidos(){
 
 
                     <strong class="subtotal">
-
-                        ${dinheiro(item.subtotal)}
-
+                        ${dinheiro(subtotal)}
                     </strong>
 
                 </div>
@@ -220,24 +229,15 @@ function carregarPedidos(){
 
                 </div>
 
-
-                <span class="status ${pedido.status || "novo"}">
-
-                    ${
-                        pedido.status === "impresso"
-                        ? "🖨️ Impresso"
-                        : "🟢 Novo"
-                    }
-
+                <span class="status novo">
+                    🟢 Novo
                 </span>
 
             </div>
 
 
             <p class="data-hora">
-
                 🕒 ${pedido.dataHora || ""}
-
             </p>
 
 
@@ -248,9 +248,7 @@ function carregarPedidos(){
 
 
             <div class="itens">
-
                 ${itensHTML}
-
             </div>
 
 
@@ -259,7 +257,9 @@ function carregarPedidos(){
 
             <div class="observacao">
 
-                <strong>📝 Observações</strong>
+                <strong>
+                    📝 Observações
+                </strong>
 
                 <p>
                     ${pedido.observacao || "Nenhuma"}
@@ -273,7 +273,9 @@ function carregarPedidos(){
 
             <div class="total">
 
-                <span>TOTAL</span>
+                <span>
+                    TOTAL
+                </span>
 
                 <strong>
                     ${dinheiro(pedido.total)}
@@ -297,7 +299,7 @@ function carregarPedidos(){
                     onclick="removerPedido(${pedido.numero})"
                     class="botao remover">
 
-                    🗑️ Remover
+                    🗑️ Cancelar
 
                 </button>
 
@@ -315,7 +317,7 @@ function carregarPedidos(){
 
 
 // ==========================================
-// IMPRIMIR UM PEDIDO
+// IMPRIMIR PEDIDO
 // ==========================================
 
 function imprimirPedido(numero){
@@ -328,13 +330,16 @@ function imprimirPedido(numero){
 
     const pedido =
         pedidos.find(
-            p => Number(p.numero) === Number(numero)
+            p =>
+            Number(p.numero) ===
+            Number(numero)
         );
 
 
     if(!pedido){
 
         alert("Pedido não encontrado.");
+
         return;
 
     }
@@ -342,13 +347,22 @@ function imprimirPedido(numero){
 
     const numeroFormatado =
         String(pedido.numero)
-        .padStart(3,"0");
+        .padStart(3, "0");
 
 
     let itensHTML = "";
 
 
     pedido.itens.forEach(item => {
+
+
+        const subtotal =
+            Number(item.subtotal) ||
+            (
+                Number(item.preco) *
+                Number(item.quantidade)
+            );
+
 
         itensHTML += `
 
@@ -359,7 +373,7 @@ function imprimirPedido(numero){
                 </span>
 
                 <span>
-                    ${dinheiro(item.subtotal)}
+                    ${dinheiro(subtotal)}
                 </span>
 
             </div>
@@ -377,6 +391,17 @@ function imprimirPedido(numero){
         );
 
 
+    if(!janela){
+
+        alert(
+            "O navegador bloqueou a janela de impressão."
+        );
+
+        return;
+
+    }
+
+
     janela.document.write(`
 
 <!DOCTYPE html>
@@ -387,93 +412,103 @@ function imprimirPedido(numero){
 
 <meta charset="UTF-8">
 
-<title>Comanda #${numeroFormatado}</title>
+<title>
+Comanda #${numeroFormatado}
+</title>
 
 
 <style>
 
-@page{
-    size:80mm auto;
-    margin:3mm;
-}
+@page {
 
-body{
-
-    font-family:Arial,sans-serif;
-
-    width:72mm;
-
-    margin:0 auto;
-
-    color:#000;
-
-    font-size:13px;
+    size: 80mm auto;
+    margin: 3mm;
 
 }
 
-h1{
+body {
 
-    text-align:center;
-    margin:0;
-    font-size:19px;
+    font-family: Arial, sans-serif;
 
-}
+    width: 72mm;
 
-h2{
+    margin: 0 auto;
 
-    text-align:center;
-    margin:5px 0;
-    font-size:16px;
+    color: #000;
+
+    font-size: 13px;
 
 }
 
-.central{
+h1 {
 
-    text-align:center;
+    text-align: center;
 
-}
+    margin: 0;
 
-.separador{
-
-    border-top:1px dashed #000;
-    margin:10px 0;
+    font-size: 19px;
 
 }
 
-.destaque{
+h2 {
 
-    font-size:17px;
-    font-weight:bold;
+    text-align: center;
 
-}
+    margin: 5px 0;
 
-.linha-item-impressao{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    margin:7px 0;
+    font-size: 16px;
 
 }
 
-.obs{
+.central {
 
-    white-space:pre-wrap;
+    text-align: center;
 
 }
 
-.total-impressao{
+.separador {
 
-    display:flex;
+    border-top: 1px dashed #000;
 
-    justify-content:space-between;
+    margin: 10px 0;
 
-    font-size:17px;
+}
 
-    font-weight:bold;
+.destaque {
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+}
+
+.linha-item-impressao {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin: 7px 0;
+
+}
+
+.obs {
+
+    white-space: pre-wrap;
+
+}
+
+.total-impressao {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 17px;
+
+    font-weight: bold;
 
 }
 
@@ -485,9 +520,14 @@ h2{
 <body>
 
 
-<h1>HOTEL DO BAÚ</h1>
+<h1>
+HOTEL DO BAÚ
+</h1>
 
-<h2>COMANDA #${numeroFormatado}</h2>
+
+<h2>
+COMANDA #${numeroFormatado}
+</h2>
 
 
 <div class="separador"></div>
@@ -512,7 +552,10 @@ ${itensHTML}
 <div class="separador"></div>
 
 
-<strong>OBSERVAÇÕES:</strong>
+<strong>
+OBSERVAÇÕES:
+</strong>
+
 
 <p class="obs">
 ${pedido.observacao || "Nenhuma"}
@@ -524,11 +567,13 @@ ${pedido.observacao || "Nenhuma"}
 
 <div class="total-impressao">
 
-<span>TOTAL</span>
+    <span>
+        TOTAL
+    </span>
 
-<span>
-${dinheiro(pedido.total)}
-</span>
+    <span>
+        ${dinheiro(pedido.total)}
+    </span>
 
 </div>
 
@@ -537,9 +582,13 @@ ${dinheiro(pedido.total)}
 
 
 <p class="central">
+
 Hotel do Baú
+
 <br>
+
 Obrigado!
+
 </p>
 
 
@@ -565,19 +614,21 @@ window.onload = function(){
 
 
     // ======================================
-    // CONFIRMA SE FOI IMPRESSO
+    // CONFIRMA IMPRESSÃO
     // ======================================
 
     setTimeout(function(){
 
-        const impresso = confirm(
-            "🖨️ A comanda #" +
-            numeroFormatado +
-            " foi impressa corretamente?"
-        );
+        const impresso =
+            confirm(
+                "🖨️ A comanda #" +
+                numeroFormatado +
+                " foi impressa corretamente?"
+            );
 
 
         if(impresso){
+
 
             pedidos =
                 pedidos.filter(
@@ -606,7 +657,7 @@ window.onload = function(){
         }else{
 
             alert(
-                "A comanda continuará na lista para você tentar imprimir novamente."
+                "A comanda continuará na lista."
             );
 
         }
@@ -616,16 +667,16 @@ window.onload = function(){
 }
 
 
+
 // ==========================================
-// REMOVER PEDIDO
+// CANCELAR / REMOVER PEDIDO
 // ==========================================
 
 function removerPedido(numero){
 
-
     const confirmar =
         confirm(
-            "Deseja remover esta comanda da lista?"
+            "Deseja cancelar e remover esta comanda?"
         );
 
 
@@ -664,7 +715,7 @@ function removerPedido(numero){
 
 
 // ==========================================
-// ATUALIZAR AUTOMATICAMENTE
+// ATUALIZAÇÃO AUTOMÁTICA
 // ==========================================
 
 setInterval(
